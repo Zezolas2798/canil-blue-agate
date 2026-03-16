@@ -1,0 +1,79 @@
+import prisma from "@/lib/prisma";
+
+export default async function AdminDashboard() {
+  const leads = await prisma.lead.findMany({
+    orderBy: { createdAt: "desc" },
+    take: 10,
+  });
+
+  const totalDogs = await prisma.dog.count();
+  const totalLitters = await prisma.litter.count();
+  const totalLeads = await prisma.lead.count();
+
+  return (
+    <div className="p-8 max-w-6xl mx-auto">
+      <h1 className="font-serif text-3xl font-bold text-white mb-8">Visão Geral</h1>
+      
+      {/* Metrics Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="bg-zinc-900/50 border border-white/5 p-6 rounded-2xl">
+          <p className="text-zinc-500 font-medium mb-1">Total de Cães (Plantel)</p>
+          <p className="text-4xl font-bold text-white">{totalDogs}</p>
+        </div>
+        <div className="bg-zinc-900/50 border border-white/5 p-6 rounded-2xl">
+          <p className="text-zinc-500 font-medium mb-1">Ninhadas</p>
+          <p className="text-4xl font-bold text-white">{totalLitters}</p>
+        </div>
+        <div className="bg-amber-900/20 border border-amber-500/20 p-6 rounded-2xl">
+          <p className="text-amber-500 font-medium mb-1">Aplicações Recebidas</p>
+          <p className="text-4xl font-bold text-amber-500">{totalLeads}</p>
+        </div>
+      </div>
+
+      {/* Latest Leads Table */}
+      <div className="bg-zinc-900 border border-white/5 rounded-2xl overflow-hidden">
+        <div className="p-6 border-b border-white/5 flex justify-between items-center">
+          <h2 className="text-xl font-medium text-white">Últimas Aplicações (Leads)</h2>
+        </div>
+        {leads.length === 0 ? (
+          <div className="p-8 text-center text-zinc-500 font-medium">Nenhum formulário recebido ainda.</div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm text-zinc-400">
+              <thead className="bg-zinc-800/50 text-xs uppercase text-zinc-500">
+                <tr>
+                  <th className="px-6 py-4 font-medium">Nome</th>
+                  <th className="px-6 py-4 font-medium">Contato</th>
+                  <th className="px-6 py-4 font-medium">Interesse</th>
+                  <th className="px-6 py-4 font-medium">Data</th>
+                  <th className="px-6 py-4 font-medium">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {leads.map((lead) => (
+                  <tr key={lead.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                    <td className="px-6 py-4 font-medium text-white">{lead.name}</td>
+                    <td className="px-6 py-4">
+                      {lead.email}<br/>
+                      <span className="text-xs text-zinc-500">{lead.phone}</span>
+                    </td>
+                    <td className="px-6 py-4">{lead.interest}</td>
+                    <td className="px-6 py-4">{new Date(lead.createdAt).toLocaleDateString("pt-BR")}</td>
+                    <td className="px-6 py-4">
+                      <span className={`px-2 py-1 rounded-full text-xs font-semibold tracking-wider ${
+                        lead.status === "NOVO" ? "bg-amber-500/20 text-amber-400" :
+                        "bg-zinc-800 text-zinc-400"
+                      }`}>
+                        {lead.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

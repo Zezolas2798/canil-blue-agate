@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-body: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+  
+  --color-agate-navy: #001F3F;
+  --color-burnished-gold: #C5A059;
+  --color-slate-charcoal: #333F48;
+}
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #333F48;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, .font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Luxury UI Utilities */
+.btn-gold {
+  background-color: #C5A059;
+  color: #FFFFFF;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.btn-gold:hover {
+  background-color: #A68648;
+  transform: translateY(-1px);
+}
+
+.btn-outline-gold {
+  border: 1px solid #C5A059;
+  color: #C5A059;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.btn-outline-gold:hover {
+  background-color: #C5A059;
+  color: #FFFFFF;
+}
+
+.section-spacing {
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(197, 160, 89, 0.1);
+}
+
+/* Reveal Animations on Scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Organic Section Dividers */
+.shape-divider {
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.shape-divider svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 80px;
+}
+
+.shape-divider.top {
+  top: 0;
+}
+
+.shape-divider.bottom {
+  bottom: 0;
+}
+
+.shape-divider .shape-fill {
+  fill: #FFFFFF;
+}
+
+.navy-fill .shape-fill {
+  fill: #001F3F;
+}
