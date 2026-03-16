@@ -1,6 +1,8 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminClients() {
   const clients = await prisma.client.findMany({
     orderBy: { createdAt: "desc" },
