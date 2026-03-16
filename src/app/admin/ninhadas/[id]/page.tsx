@@ -1,6 +1,9 @@
 import prisma from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { notFound } from "next/navigation";
 import LitterManagerClient from "../LitterManagerClient";
+
+export const dynamic = "force-dynamic";
 
 export default async function EditLitterPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

@@ -1,6 +1,8 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminFinanceiro() {
   const transactions = await prisma.transaction.findMany({
     orderBy: { date: "desc" },

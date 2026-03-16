@@ -1,6 +1,8 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
+export const dynamic = "force-dynamic";
+
 // Seed default configs if they don't exist yet
 async function ensureDefaults() {
   const defaults = [
