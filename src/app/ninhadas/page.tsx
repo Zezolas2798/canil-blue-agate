@@ -2,6 +2,8 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Ninhadas | Curadoria Blue Agate",
   description: "Descubra nossas ninhadas atuais e planejadas. Excelência genética e cuidado extraordinário desde o nascimento.",

@@ -2,6 +2,8 @@ import prisma from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Nosso Plantel | Curadoria Blue Agate",
   description: "Conheça nossos reprodutores e matrizes excepcionais. Padrão genético de elite e beleza estrutural.",
