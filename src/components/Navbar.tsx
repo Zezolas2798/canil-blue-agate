@@ -65,7 +65,13 @@ export default function Navbar() {
 
       {/* Mobile Drawer Content */}
       <div 
-        className={`fixed top-0 right-0 h-full w-[85%] max-w-[400px] bg-[#020617] opacity-100 z-50 shadow-2xl transition-transform duration-500 ease-in-out md:hidden flex flex-col ${
+        style={{ 
+          backgroundColor: '#020617', 
+          opacity: 1, 
+          backdropFilter: 'none', 
+          WebkitBackdropFilter: 'none' 
+        }}
+        className={`fixed top-0 right-0 h-full w-[85%] max-w-[400px] z-[100] shadow-2xl transition-transform duration-500 ease-in-out md:hidden flex flex-col ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
