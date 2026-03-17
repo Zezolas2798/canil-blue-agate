@@ -57,7 +57,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer Overlay */}
       <div 
-        className={`fixed inset-0 bg-black/95 z-[9998] transition-opacity duration-500 md:hidden ${
+        className={`fixed inset-0 bg-[#000000] z-[9998] transition-opacity duration-500 md:hidden ${
           isOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
         onClick={() => setIsOpen(false)}
@@ -72,7 +72,7 @@ export default function Navbar() {
           WebkitBackdropFilter: 'none',
           visibility: isOpen ? 'visible' : 'hidden'
         }}
-        className={`fixed top-0 right-0 h-full w-[85%] max-w-[400px] z-[9999] shadow-2xl transition-transform duration-500 ease-in-out md:hidden flex flex-col ${
+        className={`fixed top-0 right-0 h-full w-[85%] max-w-[400px] z-[9999] shadow-2xl transition-transform duration-500 ease-in-out md:hidden flex flex-col drawer-solid-fix ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
