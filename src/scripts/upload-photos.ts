@@ -6,13 +6,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const supabaseUrl = process.env.POSTGRES_PRISMA_URL?.split('@')[1].split(':')[0]; // Simplistic extraction
-const supabaseRef = "ircjgepumexoqslljtql";
-const supabaseFullUrl = `https://${supabaseRef}.supabase.co`;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY; // I'll need to check the .env again for the key
+const supabaseFullUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://wwjyspwfentvrqmnilcg.supabase.co";
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 if (!supabaseKey) {
-  console.error('❌ Erro: SUPABASE_SERVICE_ROLE_KEY ou NEXT_PUBLIC_SUPABASE_ANON_KEY não encontrada no .env');
+  console.error('❌ Erro: NEXT_PUBLIC_SUPABASE_ANON_KEY não encontrada no .env');
   process.exit(1);
 }
 
@@ -22,12 +20,18 @@ const prisma = new PrismaClient();
 const UPLOADS_DIR = path.join(process.cwd(), 'public', 'uploads');
 const BUCKET_NAME = 'kennel-media';
 
+// Forçar atualização se o link for do projeto antigo ou pasta local
+const shouldUpdateUrl = (url: string | null) => {
+  if (!url) return false;
+  return url.includes('/uploads/') || (url.includes('supabase.co') && !url.includes('wwjyspwfentvrqmnilcg'));
+};
+
 async function uploadFile(filePath: string, fileName: string) {
   const fileBuffer = fs.readFileSync(filePath);
   const { data, error } = await supabase.storage
     .from(BUCKET_NAME)
     .upload(fileName, fileBuffer, {
-      contentType: 'image/jpeg', // Assuming jpeg based on list_dir
+      contentType: 'image/jpeg', 
       upsert: true,
     });
 
@@ -77,8 +81,8 @@ async function main() {
     let profilePhoto = dog.profilePhoto;
     let media = dog.media;
 
-    if (profilePhoto && profilePhoto.includes('/uploads/')) {
-      const fileName = profilePhoto.split('/').pop();
+    if (shouldUpdateUrl(profilePhoto)) {
+      const fileName = profilePhoto?.split('/').pop();
       if (fileName && urlMap[fileName]) {
         profilePhoto = urlMap[fileName];
         updated = true;
@@ -89,7 +93,7 @@ async function main() {
       try {
         const mediaUrls = JSON.parse(media);
         const newMediaUrls = mediaUrls.map((url: string) => {
-          if (url.includes('/uploads/')) {
+          if (shouldUpdateUrl(url)) {
             const fileName = url.split('/').pop();
             return (fileName && urlMap[fileName]) ? urlMap[fileName] : url;
           }
@@ -97,9 +101,7 @@ async function main() {
         });
         media = JSON.stringify(newMediaUrls);
         updated = true;
-      } catch (e) {
-        // Not JSON or empty
-      }
+      } catch (e) {}
     }
 
     if (updated) {
@@ -114,11 +116,11 @@ async function main() {
   // 2. Ninhadas (Litters)
   const litters = await prisma.litter.findMany();
   for (const litter of litters) {
-     if (litter.media) {
+     if (shouldUpdateUrl(litter.media)) {
          try {
-             const mediaUrls = JSON.parse(litter.media);
+             const mediaUrls = JSON.parse(litter.media || '[]');
              const newMediaUrls = mediaUrls.map((url: string) => {
-               if (url.includes('/uploads/')) {
+               if (shouldUpdateUrl(url)) {
                  const fileName = url.split('/').pop();
                  return (fileName && urlMap[fileName]) ? urlMap[fileName] : url;
                }
@@ -136,8 +138,8 @@ async function main() {
   // 3. Filhotes (Puppies)
   const puppies = await prisma.puppy.findMany();
   for (const puppy of puppies) {
-      if (puppy.photo && puppy.photo.includes('/uploads/')) {
-          const fileName = puppy.photo.split('/').pop();
+      if (shouldUpdateUrl(puppy.photo)) {
+          const fileName = puppy.photo?.split('/').pop();
           if (fileName && urlMap[fileName]) {
               await prisma.puppy.update({
                   where: { id: puppy.id },
