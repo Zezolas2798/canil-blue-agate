@@ -57,7 +57,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer Overlay */}
       <div 
-        className={`fixed inset-0 bg-[#000000] z-[9998] transition-opacity duration-500 md:hidden ${
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[9998] transition-opacity duration-500 md:hidden ${
           isOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
         onClick={() => setIsOpen(false)}
