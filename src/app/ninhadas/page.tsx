@@ -99,7 +99,7 @@ export default async function LittersPage() {
 
                     <div className="pt-4 flex flex-wrap gap-2">
                        {litter.puppies.length > 0 ? (
-                         litter.puppies.map((p, i) => (
+                         litter.puppies.map((p: any, i: number) => (
                            <span key={i} className="px-3 py-1 bg-zinc-50 text-zinc-400 text-[9px] font-bold uppercase tracking-wider rounded-sm border border-zinc-100">
                              {p.sex === 'M' ? 'Macho' : 'Fêmea'}
                            </span>
