@@ -1,0 +1,157 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/sqlite-client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../prisma/dev.db"
+}
+
+model Client {
+  id          String        @id
+  name        String
+  cpf         String?
+  email       String?
+  phone       String
+  address     String?
+  notes       String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime
+  Puppy       Puppy[]
+  Transaction Transaction[]
+}
+
+model Dog {
+  id                        String    @id
+  registrySystem            String?
+  nickname                  String?
+  name                      String
+  registrationName          String?
+  breed                     String
+  variety                   String?
+  birthDate                 DateTime?
+  color                     String
+  arrivalDate               DateTime?
+  height                    Float?
+  nationality               String?
+  sex                       String
+  temperament               String?
+  status                    String    @default("ATIVO")
+  showGenealogy             Boolean   @default(true)
+  notes                     String?
+  coat                      String?
+  profilePhoto              String?
+  media                     String?
+  videos                    String?
+  microchip                 String?
+  microchipDate             DateTime?
+  dnaProfile                String?
+  tagId                     String?
+  tattoo                    String?
+  coi                       String?
+  hipDysplasia              String?
+  elbowDysplasia            String?
+  patellaLuxation           String?
+  healthDocsUrls            String?
+  sireId                    String?
+  damId                     String?
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime
+  pedigreeDocUrl            String?
+  pedigreeId                String?
+  Dog_Dog_damIdToDog        Dog?      @relation("Dog_damIdToDog", fields: [damId], references: [id])
+  other_Dog_Dog_damIdToDog  Dog[]     @relation("Dog_damIdToDog")
+  Dog_Dog_sireIdToDog       Dog?      @relation("Dog_sireIdToDog", fields: [sireId], references: [id])
+  other_Dog_Dog_sireIdToDog Dog[]     @relation("Dog_sireIdToDog")
+  Litter_Litter_damIdToDog  Litter[]  @relation("Litter_damIdToDog")
+  Litter_Litter_sireIdToDog Litter[]  @relation("Litter_sireIdToDog")
+  Vaccine                   Vaccine[]
+}
+
+model Lead {
+  id        String   @id
+  name      String
+  email     String
+  phone     String
+  interest  String
+  status    String   @default("NOVO")
+  answers   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}
+
+model Litter {
+  id                     String    @id
+  title                  String?
+  matingDate             DateTime?
+  expectedBirthDate      DateTime?
+  birthDate              DateTime?
+  status                 String    @default("PLANEJADA")
+  sireId                 String?
+  damId                  String?
+  media                  String?
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime
+  price                  Float?
+  Dog_Litter_damIdToDog  Dog?      @relation("Litter_damIdToDog", fields: [damId], references: [id])
+  Dog_Litter_sireIdToDog Dog?      @relation("Litter_sireIdToDog", fields: [sireId], references: [id])
+  Puppy                  Puppy[]
+}
+
+model Puppy {
+  id          String    @id
+  name        String?
+  sex         String
+  color       String
+  coat        String?
+  price       Float?
+  status      String    @default("DISPONIVEL")
+  buyerId     String?
+  saleDate    DateTime?
+  litterId    String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime
+  birthWeight Float?
+  photo       String?
+  Litter      Litter    @relation(fields: [litterId], references: [id])
+  Client      Client?   @relation(fields: [buyerId], references: [id])
+  Vaccine     Vaccine[]
+}
+
+model SiteConfig {
+  id        String   @id
+  key       String   @unique
+  value     String
+  label     String?
+  type      String   @default("text")
+  updatedAt DateTime
+}
+
+model Transaction {
+  id          String   @id
+  type        String
+  category    String
+  description String
+  amount      Float
+  date        DateTime
+  clientId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+  Client      Client?  @relation(fields: [clientId], references: [id])
+}
+
+model Vaccine {
+  id          String    @id
+  name        String
+  dueDate     DateTime
+  appliedDate DateTime?
+  status      String    @default("PENDENTE")
+  notes       String?
+  dogId       String?
+  puppyId     String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime
+  Puppy       Puppy?    @relation(fields: [puppyId], references: [id])
+  Dog         Dog?      @relation(fields: [dogId], references: [id])
+}

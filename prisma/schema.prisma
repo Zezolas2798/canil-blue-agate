@@ -3,198 +3,155 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL") // Link para Vercel Postgres com pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // Link direto para migrações
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Dog {
   id               String    @id @default(cuid())
-  
-  // === Dados Básicos ===
-  registrySystem   String?                         // Sistema Cartorial (ex: CBKC, ALKC)
-  nickname         String?                         // Apelido
-  name             String                          // Nome comum
-  registrationName String?                         // Nome de Registro (Afixo)
-  breed            String                          // Raça (ex: "Dachshund")
-  variety          String?                         // Variedade (ex: "Miniatura Pelo Longo")
+  registrySystem   String?
+  nickname         String?
+  name             String
+  registrationName String?
+  breed            String
+  variety          String?
   birthDate        DateTime?
-  color            String                          // Cor
-  arrivalDate      DateTime?                       // Data da chegada
-  height           Float?                          // Altura (cm)
-  nationality      String?                         // Nacionalidade
-  sex              String                          // "M" ou "F"
-  temperament      String?                         // Temperamento
-  status           String    @default("ATIVO")     // "ATIVO", "APOSENTADO", "VENDIDO", "OBITO" // "Faz parte do Plantel?" e "Exibição no Site" podem derivar deste e de flags booleanas
-  showGenealogy    Boolean   @default(true)        // Mostrar Arvore genealógica
-  notes            String?                         // Observações
-  coat             String?                         // Pelagem (estava no schema anterior, mantido para legado)
-  
-  // === Fotos e Mídia ===
-  profilePhoto     String?                         // URL da Foto Principal / Perfil
-  media            String?                         // JSON Array de URLs de fotos
-  videos           String?                         // JSON Array de URLs de vídeos
-  
-  // === Dados Complementares ===
-  // Identificação
-  microchip        String?                         // Número do Microchip
-  microchipDate    DateTime?                       // Data da Microchipagem
-  dnaProfile       String?                         // DNA
-  tagId            String?                         // Tag/Placa/Id
-  tattoo           String?                         // Número da Tatuagem (mantido)
-  
-  // Saúde / Profilaxia
-  coi              String?                         // COI (Coefficient of Inbreeding)
-  hipDysplasia     String?                         // Displasia Coxo-Femural
-  elbowDysplasia   String?                         // Displasia Cotovelo
-  patellaLuxation  String?                         // Luxação de Patela
-  healthDocsUrls   String?                         // JSON Array de URLs de laudos de saúde (mantido)
-  
-  // === Pedigree ===
-  pedigreeId       String?                         // Número do Pedigree
-  pedigreeDocUrl   String?                         // URL do PDF do Pedigree
-
-  // === Pedigree (Genealogia Direta) ===
+  color            String
+  arrivalDate      DateTime?
+  height           Float?
+  nationality      String?
+  sex              String
+  temperament      String?
+  status           String    @default("ATIVO")
+  showGenealogy    Boolean   @default(true)
+  notes            String?
+  coat             String?
+  profilePhoto     String?
+  media            String?
+  videos           String?
+  microchip        String?
+  microchipDate    DateTime?
+  dnaProfile       String?
+  tagId            String?
+  tattoo           String?
+  coi              String?
+  hipDysplasia     String?
+  elbowDysplasia   String?
+  patellaLuxation  String?
+  healthDocsUrls   String?
+  pedigreeId       String?
+  pedigreeDocUrl   String?
   sireId           String?
-  sire             Dog?      @relation("PedigreeSire", fields: [sireId], references: [id])
   damId            String?
-  dam              Dog?      @relation("PedigreeDam", fields: [damId], references: [id])
-  
-  // Relations for reciprocal pedigree lookups
-  sireOffspring    Dog[]     @relation("PedigreeSire")
-  damOffspring     Dog[]     @relation("PedigreeDam")
-
-  // === Relacionamentos de Reprodução ===
-  sireLitters      Litter[]  @relation("SireLitters")  // Ninhadas onde foi o pai
-  damLitters       Litter[]  @relation("DamLitters")   // Ninhadas onde foi a mãe
-  vaccines         Vaccine[]                            // Histórico de vacinas
-  
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
+  dam              Dog?      @relation("PedigreeDam", fields: [damId], references: [id])
+  damOffspring     Dog[]     @relation("PedigreeDam")
+  sire             Dog?      @relation("PedigreeSire", fields: [sireId], references: [id])
+  sireOffspring    Dog[]     @relation("PedigreeSire")
+  damLitters       Litter[]  @relation("DamLitters")
+  sireLitters      Litter[]  @relation("SireLitters")
+  vaccines         Vaccine[]
 }
 
 model Litter {
-  id               String    @id @default(cuid())
-  title            String?                         // Nome da ninhada (ex: "Ninhada Verão 2026")
-  
-  // === Reprodução ===
-  matingDate       DateTime?                       // Data do acasalamento
-  expectedBirthDate DateTime?                      // Data prevista de parto
-  birthDate        DateTime?                       // Data real do nascimento
-  status           String    @default("PLANEJADA") // "PLANEJADA", "NASCIDA", "DISPONIVEL", "ENCERRADA"
-  price            Float?                          // Preço base da ninhada
-  
-  // === Pais ===
-  sireId           String?
-  sire             Dog?      @relation("SireLitters", fields: [sireId], references: [id])
-  damId            String?
-  dam              Dog?      @relation("DamLitters", fields: [damId], references: [id])
-  
-  // === Filhotes e Mídia ===
-  puppies          Puppy[]
-  media            String?                         // JSON Array de URLs de fotos da ninhada
-  
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  id                String    @id @default(cuid())
+  title             String?
+  matingDate        DateTime?
+  expectedBirthDate DateTime?
+  birthDate         DateTime?
+  status            String    @default("PLANEJADA")
+  price             Float?
+  sireId            String?
+  damId             String?
+  media             String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  dam               Dog?      @relation("DamLitters", fields: [damId], references: [id])
+  sire              Dog?      @relation("SireLitters", fields: [sireId], references: [id])
+  puppies           Puppy[]
 }
 
 model Puppy {
-  id               String    @id @default(cuid())
-  name             String?                         // Nome provisório
-  sex              String                          // "M" ou "F"
-  color            String
-  coat             String?
-  birthWeight      Float?                          // Peso ao nascer (gramas)
-  price            Float?
-  status           String    @default("DISPONIVEL") // "DISPONIVEL", "RESERVADO", "VENDIDO"
-  photo            String?                         // Foto de perfil do filhote
-  
-  // === Controle de Saúde (gerado automaticamente) ===
-  vaccines         Vaccine[]
-  
-  // === Venda ===
-  buyerId          String?
-  buyer            Client?   @relation(fields: [buyerId], references: [id])
-  saleDate         DateTime?
-  
-  litterId         String
-  litter           Litter    @relation(fields: [litterId], references: [id])
-  
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  id          String    @id @default(cuid())
+  name        String?
+  sex         String
+  color       String
+  coat        String?
+  birthWeight Float?
+  price       Float?
+  status      String    @default("DISPONIVEL")
+  photo       String?
+  buyerId     String?
+  saleDate    DateTime?
+  litterId    String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  buyer       Client?   @relation(fields: [buyerId], references: [id])
+  litter      Litter    @relation(fields: [litterId], references: [id])
+  vaccines    Vaccine[]
 }
 
 model Vaccine {
-  id               String    @id @default(cuid())
-  name             String                          // "V8", "V10", "Antirrábica", "Vermífugo"
-  dueDate          DateTime                        // Data prevista/agendada
-  appliedDate      DateTime?                       // Data em que foi aplicada
-  status           String    @default("PENDENTE")  // "PENDENTE", "APLICADA", "ATRASADA"
-  notes            String?
-  
-  // Pode pertencer a um Cão adulto OU a um filhote
-  dogId            String?
-  dog              Dog?      @relation(fields: [dogId], references: [id])
-  puppyId          String?
-  puppy            Puppy?    @relation(fields: [puppyId], references: [id])
-  
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  id          String    @id @default(cuid())
+  name        String
+  dueDate     DateTime
+  appliedDate DateTime?
+  status      String    @default("PENDENTE")
+  notes       String?
+  dogId       String?
+  puppyId     String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  dog         Dog?      @relation(fields: [dogId], references: [id])
+  puppy       Puppy?    @relation(fields: [puppyId], references: [id])
 }
 
 model Client {
-  id               String    @id @default(cuid())
-  name             String
-  cpf              String?
-  email            String?
-  phone            String
-  address          String?
-  notes            String?
-  
-  // Filhotes comprados
-  puppiesBought    Puppy[]
-  // Transações financeiras
-  transactions     Transaction[]
-  
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  id            String        @id @default(cuid())
+  name          String
+  cpf           String?
+  email         String?
+  phone         String
+  address       String?
+  notes         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  puppiesBought Puppy[]
+  transactions  Transaction[]
 }
 
 model Transaction {
-  id               String    @id @default(cuid())
-  type             String                          // "ENTRADA" ou "SAIDA"
-  category         String                          // "VENDA", "VETERINARIO", "RACAO", "MARKETING", "OUTRO"
-  description      String
-  amount           Float
-  date             DateTime
-  
-  clientId         String?
-  client           Client?   @relation(fields: [clientId], references: [id])
-  
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  id          String   @id @default(cuid())
+  type        String
+  category    String
+  description String
+  amount      Float
+  date        DateTime
+  clientId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  client      Client?  @relation(fields: [clientId], references: [id])
 }
 
 model Lead {
-  id               String    @id @default(cuid())
-  name             String
-  email            String
-  phone            String
-  interest         String
-  status           String    @default("NOVO")      // "NOVO", "EM_ATENDIMENTO", "QUALIFICADO", "REJEITADO"
-  answers          String                          // JSON com respostas do form
-  
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  interest  String
+  status    String   @default("NOVO")
+  answers   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-// Configurações do CMS (banners, textos institucionais, redes sociais)
 model SiteConfig {
-  id               String    @id @default(cuid())
-  key              String    @unique                // ex: "banner_home", "texto_quem_somos", "link_instagram"
-  value            String                          // Valor da configuração (texto, URL, JSON)
-  label            String?                         // Label amigável para exibição no admin
-  type             String    @default("text")      // "text", "url", "image", "richtext"
-  
-  updatedAt        DateTime  @updatedAt
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  label     String?
+  type      String   @default("text")
+  updatedAt DateTime @updatedAt
 }
