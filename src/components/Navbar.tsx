@@ -65,7 +65,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer Content */}
       <div 
-        className={`fixed top-0 right-0 h-full w-[85%] max-w-[400px] bg-[#03153d] z-50 shadow-2xl transition-transform duration-500 ease-in-out md:hidden flex flex-col ${
+        className={`fixed top-0 right-0 h-full w-[85%] max-w-[400px] bg-[#020617] opacity-100 z-50 shadow-2xl transition-transform duration-500 ease-in-out md:hidden flex flex-col ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
