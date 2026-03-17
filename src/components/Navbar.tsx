@@ -66,31 +66,44 @@ export default function Navbar() {
       {/* Mobile Drawer Content */}
       <div 
         style={{ 
-          backgroundColor: '#000000', 
+          backgroundColor: '#0647C1', 
           opacity: 1, 
           backdropFilter: 'none', 
           WebkitBackdropFilter: 'none',
           visibility: isOpen ? 'visible' : 'hidden'
         }}
-        className={`fixed top-0 right-0 h-full w-[85%] max-w-[400px] z-[9999] shadow-2xl transition-transform duration-500 ease-in-out md:hidden flex flex-col drawer-solid-fix ${
+        className={`fixed top-0 right-0 h-full w-[75%] max-w-[320px] z-[9999] shadow-2xl transition-transform duration-500 ease-in-out md:hidden flex flex-col drawer-solid-fix ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Drawer Header with Logo */}
-        <div style={{ backgroundColor: '#000000' }} className="p-8 pb-4 border-b border-white/5">
-          <div className="font-serif text-xl font-bold tracking-[0.1em] text-brand-bronze mb-2">
-            BLUE AGATE
+        {/* Drawer Header with Logo & Close Button */}
+        <div className="p-8 pb-4 border-b border-white/5 flex items-start justify-between">
+          <div>
+            <div className="font-serif text-xl font-bold tracking-[0.1em] text-brand-bronze mb-1">
+              BLUE AGATE
+            </div>
+            <p className="text-[10px] text-white/30 uppercase tracking-[0.3em] font-light">Heritage & Curation</p>
           </div>
-          <p className="text-[10px] text-white/30 uppercase tracking-[0.3em] font-light">Heritage & Curation</p>
+          
+          <button 
+            onClick={() => setIsOpen(false)}
+            className="text-white/60 hover:text-white p-2 -mr-2 transition-colors"
+            aria-label="Fechar menu"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
         </div>
 
         {/* Navigation Links */}
-        <div style={{ backgroundColor: '#000000' }} className="flex-1 px-8 py-12 flex flex-col gap-8">
+        <div className="flex-1 px-8 py-12 flex flex-col gap-8">
           {links.map((link, idx) => (
             <Link 
               key={link.name} 
               href={link.href} 
-              className={`text-3xl font-serif text-white/90 transition-all duration-300 hover:text-brand-bronze transform ${isOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
+              className={`text-2xl font-serif text-white/90 transition-all duration-300 hover:text-brand-bronze transform ${isOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
               style={{ transitionDelay: `${idx * 100 + 200}ms` }}
               onClick={() => setIsOpen(false)}
             >
@@ -100,7 +113,7 @@ export default function Navbar() {
         </div>
 
         {/* Drawer Footer */}
-        <div style={{ backgroundColor: '#000000' }} className="p-8 border-t border-white/5">
+        <div className="p-8 border-t border-white/5">
           <p className="text-[9px] text-brand-bronze uppercase tracking-[0.4em] font-bold mb-6">Fale Conosco</p>
           <div className="flex flex-col gap-4">
             {socialLinks.map((social) => (
