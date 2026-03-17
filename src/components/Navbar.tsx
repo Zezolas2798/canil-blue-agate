@@ -77,7 +77,7 @@ export default function Navbar() {
         }`}
       >
         {/* Drawer Header with Logo */}
-        <div className="p-8 pb-4 border-b border-white/5">
+        <div style={{ backgroundColor: '#000000' }} className="p-8 pb-4 border-b border-white/5">
           <div className="font-serif text-xl font-bold tracking-[0.1em] text-brand-bronze mb-2">
             BLUE AGATE
           </div>
@@ -85,7 +85,7 @@ export default function Navbar() {
         </div>
 
         {/* Navigation Links */}
-        <div className="flex-1 px-8 py-12 flex flex-col gap-8">
+        <div style={{ backgroundColor: '#000000' }} className="flex-1 px-8 py-12 flex flex-col gap-8">
           {links.map((link, idx) => (
             <Link 
               key={link.name} 
@@ -100,7 +100,7 @@ export default function Navbar() {
         </div>
 
         {/* Drawer Footer */}
-        <div className="p-8 border-t border-white/5 bg-black/10">
+        <div style={{ backgroundColor: '#000000' }} className="p-8 border-t border-white/5">
           <p className="text-[9px] text-brand-bronze uppercase tracking-[0.4em] font-bold mb-6">Fale Conosco</p>
           <div className="flex flex-col gap-4">
             {socialLinks.map((social) => (
