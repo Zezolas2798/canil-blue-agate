@@ -43,23 +43,24 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       <div 
-        className={`fixed inset-0 top-24 bg-brand-blue z-40 transition-transform duration-500 ease-in-out md:hidden ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed inset-0 bg-brand-blue/98 backdrop-blur-xl z-40 transition-all duration-500 ease-in-out md:hidden ${
+          isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
         }`}
       >
-        <div className="flex flex-col items-center justify-center h-full gap-8 px-6 pb-24">
+        <div className="flex flex-col items-center justify-center h-full gap-12 px-6">
           {links.map((link) => (
             <Link 
               key={link.name} 
               href={link.href} 
-              className="text-2xl font-serif text-white hover:text-brand-bronze transition-colors"
+              className={`text-3xl font-serif text-white transition-all duration-300 hover:text-brand-bronze transform ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
+              style={{ transitionDelay: `${links.indexOf(link) * 100}ms` }}
               onClick={() => setIsOpen(false)}
             >
               {link.name}
             </Link>
           ))}
-          <div className="w-12 h-[1px] bg-brand-bronze/30 mt-4" />
-          <p className="text-[10px] text-white/40 uppercase tracking-[0.4em]">Canil Blue Agate</p>
+          <div className="w-16 h-[1px] bg-brand-bronze/40 mt-6" />
+          <p className="text-[10px] text-white/40 uppercase tracking-[0.5em] font-light">Canil Blue Agate</p>
         </div>
       </div>
     </nav>

@@ -10,9 +10,15 @@ export const metadata = {
 };
 
 export default async function DogsPage() {
-  const dogs: any[] = await prisma.dog.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  let dogs: any[] = [];
+  try {
+    dogs = await prisma.dog.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+  } catch (error) {
+    console.error("Erro ao buscar cães:", error);
+    // Retornar um erro amigável na UI se necessário, ou deixar o Next.js tratar
+  }
 
   return (
     <div className="bg-white min-h-screen">

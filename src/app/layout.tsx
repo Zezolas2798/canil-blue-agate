@@ -31,7 +31,7 @@ export default function RootLayout({
       >
         <div className="relative min-h-screen flex flex-col">
           {/* Header: Brand Royal Blue */}
-          <header className="fixed top-0 w-full z-50 border-b border-white/10 bg-brand-blue backdrop-blur-md overflow-hidden">
+          <header className="fixed top-0 w-full z-50 border-b border-white/10 bg-brand-blue backdrop-blur-md">
             <div className="max-w-7xl mx-auto flex items-center justify-between h-24 px-6 relative">
               <div className="flex items-center gap-4">
                 <div className="font-serif text-2xl font-bold tracking-[0.1em] text-brand-bronze">

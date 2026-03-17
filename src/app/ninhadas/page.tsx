@@ -10,14 +10,19 @@ export const metadata = {
 };
 
 export default async function LittersPage() {
-  const litters = await prisma.litter.findMany({
-    orderBy: { createdAt: "desc" },
-    include: {
-      sire: true,
-      dam: true,
-      puppies: true,
-    }
-  });
+  let litters: any[] = [];
+  try {
+    litters = await prisma.litter.findMany({
+      orderBy: { createdAt: "desc" },
+      include: {
+        sire: true,
+        dam: true,
+        puppies: true,
+      }
+    });
+  } catch (error) {
+    console.error("Erro ao buscar ninhadas:", error);
+  }
 
   return (
     <div className="bg-white min-h-screen">
