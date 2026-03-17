@@ -3,7 +3,14 @@ import { PrismaClient as PostgresClient } from '@prisma/client';
 import { PrismaClient as SqliteClient } from '../../prisma/generated/sqlite-client/index.js';
 
 const pg = new PostgresClient();
-const sl = new SqliteClient();
+// Forçar o caminho correto para o SQLite original
+const sl = new SqliteClient({
+  datasources: {
+    db: {
+      url: `file:${require('path').resolve(__dirname, '../../prisma/dev.db')}`
+    }
+  }
+});
 
 async function main() {
   console.log('🚀 Iniciando migração de dados...');
