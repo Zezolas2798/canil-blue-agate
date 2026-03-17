@@ -59,6 +59,7 @@ export default function RootLayout({
               <div className="flex flex-wrap justify-center gap-8 mb-12 text-zinc-400 text-sm font-light">
                 <a href="/caes" className="hover:text-brand-bronze transition-colors">Nossos Cães</a>
                 <a href="/ninhadas" className="hover:text-brand-bronze transition-colors">Ninhadas</a>
+                <a href="https://www.instagram.com/canilblueagate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="hover:text-brand-bronze transition-colors">Instagram</a>
                 <a href="/contato" className="hover:text-brand-bronze transition-colors">Contato</a>
                 <a href="/privacidade" className="hover:text-brand-bronze transition-colors">Privacidade</a>
               </div>
