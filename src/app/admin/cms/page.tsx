@@ -54,7 +54,7 @@ export default async function AdminCMS() {
         
         {/* Texts Section */}
         <div className="bg-zinc-900 border border-white/5 p-6 rounded-2xl">
-          <h2 className="text-base font-semibold text-amber-500 uppercase tracking-widest mb-6">Textos da Home</h2>
+          <h2 className="text-base font-semibold text-brand-gold uppercase tracking-widest mb-6">Textos da Home</h2>
           <div className="space-y-5">
             {configs.filter(c => c.type === "text" && !c.key.startsWith("link_")).map(c => (
               <div key={c.key}>
@@ -62,7 +62,7 @@ export default async function AdminCMS() {
                 <input
                   name={c.key}
                   defaultValue={c.value}
-                  className="w-full bg-zinc-950 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors"
+                  className="w-full bg-zinc-950 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-brand-gold transition-colors"
                 />
               </div>
             ))}
@@ -73,7 +73,7 @@ export default async function AdminCMS() {
                   name={c.key}
                   defaultValue={c.value}
                   rows={5}
-                  className="w-full bg-zinc-950 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors resize-none"
+                  className="w-full bg-zinc-950 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-brand-gold transition-colors resize-none"
                 />
               </div>
             ))}
@@ -82,7 +82,7 @@ export default async function AdminCMS() {
 
         {/* Social Media Section */}
         <div className="bg-zinc-900 border border-white/5 p-6 rounded-2xl">
-          <h2 className="text-base font-semibold text-amber-500 uppercase tracking-widest mb-6">Redes Sociais & Contato</h2>
+          <h2 className="text-base font-semibold text-brand-gold uppercase tracking-widest mb-6">Redes Sociais & Contato</h2>
           <div className="space-y-5">
             {configs.filter(c => c.key.startsWith("link_")).map(c => (
               <div key={c.key}>
@@ -91,7 +91,7 @@ export default async function AdminCMS() {
                   name={c.key}
                   defaultValue={c.value}
                   placeholder={c.type === "url" ? "https://..." : "Ex: 15991234567"}
-                  className="w-full bg-zinc-950 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors font-mono"
+                  className="w-full bg-zinc-950 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-brand-gold transition-colors font-mono"
                 />
               </div>
             ))}
@@ -100,7 +100,7 @@ export default async function AdminCMS() {
 
         <div className="flex justify-end">
           <button type="submit"
-            className="px-8 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors"
+            className="px-8 py-3 bg-brand-bronze text-white rounded-lg font-semibold hover:bg-brand-gold transition-colors"
           >
             Salvar Configurações
           </button>

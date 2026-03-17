@@ -26,9 +26,9 @@ export default async function AdminDashboard() {
           <p className="text-zinc-500 font-medium mb-1">Ninhadas</p>
           <p className="text-4xl font-bold text-white">{totalLitters}</p>
         </div>
-        <div className="bg-amber-900/20 border border-amber-500/20 p-6 rounded-2xl">
-          <p className="text-amber-500 font-medium mb-1">Aplicações Recebidas</p>
-          <p className="text-4xl font-bold text-amber-500">{totalLeads}</p>
+        <div className="bg-brand-gold/10 border border-brand-gold/20 p-6 rounded-2xl">
+          <p className="text-brand-gold font-medium mb-1">Aplicações Recebidas</p>
+          <p className="text-4xl font-bold text-brand-gold">{totalLeads}</p>
         </div>
       </div>
 
@@ -63,7 +63,7 @@ export default async function AdminDashboard() {
                     <td className="px-6 py-4">{new Date(lead.createdAt).toLocaleDateString("pt-BR")}</td>
                     <td className="px-6 py-4">
                       <span className={`px-2 py-1 rounded-full text-xs font-semibold tracking-wider ${
-                        lead.status === "NOVO" ? "bg-amber-500/20 text-amber-400" :
+                        lead.status === "NOVO" ? "bg-brand-gold/20 text-brand-gold" :
                         "bg-zinc-800 text-zinc-400"
                       }`}>
                         {lead.status}

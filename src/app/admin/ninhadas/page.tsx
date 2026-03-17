@@ -24,7 +24,7 @@ export default async function AdminLitters() {
         </div>
         <Link
           href="/admin/ninhadas/novo"
-          className="px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors shadow-lg shadow-amber-500/20 flex items-center gap-2"
+          className="px-6 py-3 bg-brand-bronze text-white rounded-lg font-semibold hover:bg-brand-gold transition-colors shadow-lg shadow-brand-bronze/20 flex items-center gap-2"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -49,7 +49,7 @@ export default async function AdminLitters() {
         </div>
         <div className="bg-zinc-900 border border-white/5 rounded-xl p-4">
           <p className="text-xs text-zinc-500 uppercase tracking-wider">Filhotes</p>
-          <p className="text-2xl font-bold text-amber-500 mt-1">{litters.reduce((acc, l) => acc + l._count.puppies, 0)}</p>
+          <p className="text-2xl font-bold text-brand-gold mt-1">{litters.reduce((acc, l) => acc + l._count.puppies, 0)}</p>
         </div>
       </div>
 
@@ -57,7 +57,7 @@ export default async function AdminLitters() {
       {litters.length === 0 ? (
         <div className="bg-zinc-900 border border-white/5 rounded-2xl py-20 text-center">
           <p className="text-zinc-500 text-sm mb-4">Nenhuma ninhada registrada ainda</p>
-          <Link href="/admin/ninhadas/novo" className="text-amber-500 hover:text-amber-400 text-sm font-medium">
+          <Link href="/admin/ninhadas/novo" className="text-brand-gold hover:text-brand-gold/80 text-sm font-medium">
             Registrar primeira ninhada →
           </Link>
         </div>
@@ -67,14 +67,14 @@ export default async function AdminLitters() {
             <Link
               key={litter.id}
               href={`/admin/ninhadas/${litter.id}`}
-              className="group bg-zinc-900 border border-white/5 rounded-2xl overflow-hidden hover:border-amber-500/30 transition-all duration-300 flex flex-col"
+              className="group bg-zinc-900 border border-white/5 rounded-2xl overflow-hidden hover:border-brand-bronze/30 transition-all duration-300 flex flex-col"
             >
               <div className="p-5 flex-1">
                 <div className="flex items-center justify-between mb-4">
                   <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wider ${
                     litter.status === "DISPONIVEL" ? "bg-green-500 text-white" :
                     litter.status === "PLANEJADA" ? "bg-blue-500 text-white" :
-                    litter.status === "NASCIDA" ? "bg-amber-500 text-black" :
+                    litter.status === "NASCIDA" ? "bg-brand-bronze text-white" :
                     "bg-zinc-600 text-zinc-200"
                   }`}>
                     {litter.status}
@@ -84,7 +84,7 @@ export default async function AdminLitters() {
                   </p>
                 </div>
 
-                <h3 className="text-lg font-bold text-white group-hover:text-amber-500 transition-colors">
+                <h3 className="text-lg font-bold text-white group-hover:text-brand-gold transition-colors">
                   {litter.title || "Ninhada s/ Título"}
                 </h3>
 

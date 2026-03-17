@@ -27,14 +27,20 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${montserrat.variable} ${playfair.variable} bg-[#FFFFFF] text-[#333F48] font-body antialiased selection:bg-[#C5A059]/30 selection:text-[#001F3F]`}
+        className={`${montserrat.variable} ${playfair.variable} bg-[#FFFFFF] text-[#333F48] font-body antialiased selection:bg-brand-bronze/30 selection:text-brand-blue`}
       >
         <div className="relative min-h-screen flex flex-col">
-          {/* Header: Deep Agate Navy */}
-          <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-[#001F3F] backdrop-blur-md">
-            <div className="max-w-7xl mx-auto flex items-center justify-between h-24 px-6">
-              <div className="font-serif text-2xl font-bold tracking-[0.1em] text-[#C5A059]">
-                BLUE AGATE
+          {/* Header: Brand Royal Blue */}
+          <header className="fixed top-0 w-full z-50 border-b border-white/10 bg-brand-blue backdrop-blur-md overflow-hidden">
+            <div className="max-w-7xl mx-auto flex items-center justify-between h-24 px-6 relative">
+              <div className="flex items-center gap-4">
+                <div className="font-serif text-2xl font-bold tracking-[0.1em] text-brand-bronze">
+                  BLUE AGATE
+                </div>
+                {/* Gold Dog Heritage Silhouette */}
+                <div className="flex items-center ml-2">
+                  <div className="logo-dog-img" aria-label="Canil Gold Logo" />
+                </div>
               </div>
               <Navbar />
             </div>
@@ -44,25 +50,25 @@ export default function RootLayout({
             {children}
           </main>
 
-          {/* Footer: Deep Agate Navy */}
-          <footer className="bg-[#001F3F] py-20 text-center relative overflow-hidden mt-0">
+          {/* Footer: Brand Royal Blue */}
+          <footer className="bg-brand-blue py-20 text-center relative overflow-hidden mt-0">
             <div className="max-w-7xl mx-auto px-6 relative z-10">
-              <div className="font-serif text-3xl font-bold tracking-[0.15em] text-[#C5A059] mb-10">
+              <div className="font-serif text-3xl font-bold tracking-[0.15em] text-brand-bronze mb-10">
                 BLUE AGATE
               </div>
               <div className="flex flex-wrap justify-center gap-8 mb-12 text-zinc-400 text-sm font-light">
-                <a href="/caes" className="hover:text-[#C5A059] transition-colors">Nossos Cães</a>
-                <a href="/ninhadas" className="hover:text-[#C5A059] transition-colors">Ninhadas</a>
-                <a href="/contato" className="hover:text-[#C5A059] transition-colors">Contato</a>
-                <a href="/privacidade" className="hover:text-[#C5A059] transition-colors">Privacidade</a>
+                <a href="/caes" className="hover:text-brand-bronze transition-colors">Nossos Cães</a>
+                <a href="/ninhadas" className="hover:text-brand-bronze transition-colors">Ninhadas</a>
+                <a href="/contato" className="hover:text-brand-bronze transition-colors">Contato</a>
+                <a href="/privacidade" className="hover:text-brand-bronze transition-colors">Privacidade</a>
               </div>
-              <div className="w-20 h-[1px] bg-[#C5A059]/30 mx-auto mb-8" />
+              <div className="w-20 h-[1px] bg-brand-bronze/30 mx-auto mb-8" />
               <p className="text-zinc-500 text-xs font-light tracking-widest">
                 &copy; {new Date().getFullYear()} CANIL BLUE AGATE. TODOS OS DIREITOS RESERVADOS.
               </p>
             </div>
             {/* Subtle decorative element */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#C5A059]/20 to-transparent" />
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-bronze/20 to-transparent" />
           </footer>
         </div>
       </body>

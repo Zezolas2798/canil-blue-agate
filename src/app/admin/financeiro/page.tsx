@@ -44,9 +44,9 @@ export default async function AdminFinanceiro() {
           <p className="text-red-400 text-sm font-medium mb-1">Total de Saídas</p>
           <p className="text-3xl font-bold text-red-300">{fmt(saidas)}</p>
         </div>
-        <div className={`border p-6 rounded-2xl ${saldo >= 0 ? "bg-amber-500/10 border-amber-500/20" : "bg-red-900/20 border-red-500/20"}`}>
-          <p className={`text-sm font-medium mb-1 ${saldo >= 0 ? "text-amber-400" : "text-red-400"}`}>Saldo Atual</p>
-          <p className={`text-3xl font-bold ${saldo >= 0 ? "text-amber-300" : "text-red-300"}`}>{fmt(saldo)}</p>
+        <div className={`border p-6 rounded-2xl ${saldo >= 0 ? "bg-brand-gold/10 border-brand-gold/20" : "bg-red-900/20 border-red-500/20"}`}>
+          <p className={`text-sm font-medium mb-1 ${saldo >= 0 ? "text-brand-gold" : "text-red-400"}`}>Saldo Atual</p>
+          <p className={`text-3xl font-bold ${saldo >= 0 ? "text-brand-gold" : "text-red-300"}`}>{fmt(saldo)}</p>
         </div>
       </div>
 
@@ -85,7 +85,7 @@ export default async function AdminFinanceiro() {
               <label className="block text-xs font-medium text-zinc-400 mb-1">Data *</label>
               <input name="date" type="date" required className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2 text-white text-sm" />
             </div>
-            <button type="submit" className="w-full py-2.5 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors text-sm mt-1">
+            <button type="submit" className="w-full py-2.5 bg-brand-bronze text-white rounded-lg font-semibold hover:bg-brand-gold transition-colors text-sm mt-1">
               Registrar
             </button>
           </form>

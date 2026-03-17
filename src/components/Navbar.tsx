@@ -21,7 +21,7 @@ export default function Navbar() {
           <Link 
             key={link.name} 
             href={link.href} 
-            className="hover:text-[#C5A059] transition-colors duration-300"
+            className="hover:text-brand-bronze transition-colors duration-300"
           >
             {link.name}
           </Link>
@@ -35,15 +35,15 @@ export default function Navbar() {
         aria-label="Toggle Menu"
       >
         <div className="w-6 h-5 relative flex flex-col justify-between">
-          <span className={`w-full h-[1px] bg-[#C5A059] transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-[9px]' : ''}`} />
-          <span className={`w-full h-[1px] bg-[#C5A059] transition-opacity duration-300 ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
-          <span className={`w-full h-[1px] bg-[#C5A059] transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-[10px]' : ''}`} />
+          <span className={`w-full h-[1px] bg-brand-bronze transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-[9px]' : ''}`} />
+          <span className={`w-full h-[1px] bg-brand-bronze transition-opacity duration-300 ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
+          <span className={`w-full h-[1px] bg-brand-bronze transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-[10px]' : ''}`} />
         </div>
       </button>
 
       {/* Mobile Drawer */}
       <div 
-        className={`fixed inset-0 top-24 bg-[#001F3F] z-40 transition-transform duration-500 ease-in-out md:hidden ${
+        className={`fixed inset-0 top-24 bg-brand-blue z-40 transition-transform duration-500 ease-in-out md:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -52,13 +52,13 @@ export default function Navbar() {
             <Link 
               key={link.name} 
               href={link.href} 
-              className="text-2xl font-serif text-white hover:text-[#C5A059] transition-colors"
+              className="text-2xl font-serif text-white hover:text-brand-bronze transition-colors"
               onClick={() => setIsOpen(false)}
             >
               {link.name}
             </Link>
           ))}
-          <div className="w-12 h-[1px] bg-[#C5A059]/30 mt-4" />
+          <div className="w-12 h-[1px] bg-brand-bronze/30 mt-4" />
           <p className="text-[10px] text-white/40 uppercase tracking-[0.4em]">Canil Blue Agate</p>
         </div>
       </div>

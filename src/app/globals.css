@@ -4,8 +4,9 @@
   --font-body: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
   
-  --color-agate-navy: #001F3F;
-  --color-burnished-gold: #C5A059;
+  --color-brand-blue: #0647C1;
+  --color-brand-bronze: #9E7A2C;
+  --color-brand-gold: #DE9A07;
   --color-slate-charcoal: #333F48;
 }
 
@@ -26,7 +27,7 @@ h1, h2, h3, h4, .font-serif {
 
 /* Luxury UI Utilities */
 .btn-gold {
-  background-color: #C5A059;
+  background-color: var(--color-brand-bronze);
   color: #FFFFFF;
   transition: all 0.3s ease;
   text-transform: uppercase;
@@ -36,13 +37,13 @@ h1, h2, h3, h4, .font-serif {
 }
 
 .btn-gold:hover {
-  background-color: #A68648;
+  background-color: var(--color-brand-gold);
   transform: translateY(-1px);
 }
 
 .btn-outline-gold {
-  border: 1px solid #C5A059;
-  color: #C5A059;
+  border: 1px solid var(--color-brand-bronze);
+  color: var(--color-brand-bronze);
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -51,7 +52,7 @@ h1, h2, h3, h4, .font-serif {
 }
 
 .btn-outline-gold:hover {
-  background-color: #C5A059;
+  background-color: var(--color-brand-bronze);
   color: #FFFFFF;
 }
 
@@ -63,7 +64,52 @@ h1, h2, h3, h4, .font-serif {
 .glass {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(197, 160, 89, 0.1);
+  border: 1px solid rgba(158, 122, 44, 0.1);
+}
+
+.puppy-texture {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.puppy-item {
+  width: 48px;
+  height: 48px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: brightness(0) invert(1);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.puppy-item:hover {
+  opacity: 1;
+}
+
+.logo-dog-img {
+  width: 220px;
+  height: 110px;
+  background-color: var(--color-brand-gold);
+  mask-image: url("/images/logo_dog_v2.png");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center bottom;
+  opacity: 1;
+  filter: drop-shadow(0 4px 15px rgba(0,0,0,0.4));
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin-top: -10px;
+}
+
+.logo-dog-img:hover {
+  transform: scale(1.05) translateY(-5px);
+  background-color: #FFFFFF; /* Highlight on hover */
+}
+
+.logo-dog-img:hover {
+  transform: scale(1.1) rotate(-5deg);
 }
 
 /* Reveal Animations on Scroll */
@@ -106,5 +152,5 @@ h1, h2, h3, h4, .font-serif {
 }
 
 .navy-fill .shape-fill {
-  fill: #001F3F;
+  fill: var(--color-brand-blue);
 }

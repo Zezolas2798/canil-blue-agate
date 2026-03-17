@@ -25,10 +25,10 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center p-6 relative">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-900/10 to-zinc-950 -z-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-blue/20 to-zinc-950 -z-10" />
       
-      <div className="max-w-md w-full glass p-10 rounded-2xl text-center border-amber-900/30">
-        <h1 className="font-serif text-3xl font-bold text-amber-500 mb-2">BLUE AGATE</h1>
+      <div className="max-w-md w-full glass p-10 rounded-2xl text-center border-brand-bronze/30">
+        <h1 className="font-serif text-3xl font-bold text-brand-gold mb-2">BLUE AGATE</h1>
         <p className="text-zinc-500 text-sm mb-8 tracking-widest uppercase">Workspace Restrito</p>
         
         <form action={handleSubmit} className="flex flex-col gap-6 text-left">
@@ -38,7 +38,7 @@ export default function AdminLogin() {
               type="password" 
               name="password"
               required
-              className="w-full bg-zinc-900 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors"
+              className="w-full bg-zinc-900 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-gold transition-colors"
               placeholder="••••••••"
             />
           </div>
@@ -48,7 +48,7 @@ export default function AdminLogin() {
           <button 
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-amber-600 text-white rounded-lg font-medium hover:bg-amber-500 disabled:opacity-50 transition-colors mt-2"
+            className="w-full py-3 bg-brand-bronze text-white rounded-lg font-medium hover:bg-brand-gold disabled:opacity-50 transition-colors mt-2"
           >
             {loading ? "Autenticando..." : "Entrar no Painel"}
           </button>

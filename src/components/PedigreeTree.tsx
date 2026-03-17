@@ -21,11 +21,11 @@ export default function PedigreeTree({ dog }: PedigreeTreeProps) {
   // Render a generation node
   const RenderNode = ({ node, label }: { node?: PedigreeDog | null; label: string }) => {
     const content = (
-      <div className={`flex-1 min-w-[150px] p-4 rounded-sm bg-white border border-[#C5A059]/10 shadow-sm transition-all duration-500 ${node ? "group hover:border-[#C5A059] hover:shadow-lg cursor-pointer" : ""}`}>
-        <p className="text-[8px] font-bold text-[#C5A059] uppercase tracking-[0.3em] mb-3 border-b border-zinc-50 pb-2 flex justify-between items-center">
+      <div className={`flex-1 min-w-[150px] p-4 rounded-sm bg-white border border-brand-bronze/10 shadow-sm transition-all duration-500 ${node ? "group hover:border-brand-bronze hover:shadow-lg cursor-pointer" : ""}`}>
+        <p className="text-[8px] font-bold text-brand-bronze uppercase tracking-[0.3em] mb-3 border-b border-zinc-50 pb-2 flex justify-between items-center">
           {label}
           {node?.sex && (
-            <span className="text-[#001F3F] opacity-30">
+            <span className="text-brand-blue opacity-30">
               {node.sex === "M" ? "♂" : "♀"}
             </span>
           )}
@@ -42,7 +42,7 @@ export default function PedigreeTree({ dog }: PedigreeTreeProps) {
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-bold text-[#001F3F] truncate group-hover:text-[#C5A059] transition-colors leading-tight">
+              <p className="text-xs font-bold text-brand-blue truncate group-hover:text-brand-bronze transition-colors leading-tight">
                 {node.nickname || node.name}
               </p>
               {node.registrationName && (
@@ -83,8 +83,8 @@ export default function PedigreeTree({ dog }: PedigreeTreeProps) {
 
         {/* Connectors 1-2 */}
         <div className="flex flex-col justify-around h-[300px] py-8">
-          <div className="w-6 h-1/2 border-y border-r border-[#C5A059]/20 rounded-r-sm" />
-          <div className="w-6 h-1/2 border-y border-r border-[#C5A059]/20 rounded-r-sm" />
+          <div className="w-6 h-1/2 border-y border-r border-brand-bronze/20 rounded-r-sm" />
+          <div className="w-6 h-1/2 border-y border-r border-brand-bronze/20 rounded-r-sm" />
         </div>
 
         {/* Gen 2: Grandparents */}
@@ -98,7 +98,7 @@ export default function PedigreeTree({ dog }: PedigreeTreeProps) {
         {/* Connectors 2-3 */}
         <div className="flex flex-col justify-around h-[400px] py-4">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="w-6 h-[10%] border-y border-r border-[#C5A059]/20 rounded-r-sm" />
+            <div key={i} className="w-6 h-[10%] border-y border-r border-brand-bronze/20 rounded-r-sm" />
           ))}
         </div>
 

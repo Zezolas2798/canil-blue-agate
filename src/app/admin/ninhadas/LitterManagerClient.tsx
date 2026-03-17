@@ -128,7 +128,7 @@ export default function LitterManagerClient({
               onClick={() => setActiveTab(tab.id)}
               className={`px-6 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors flex items-center gap-2 ${
                 activeTab === tab.id 
-                  ? "border-amber-500 text-amber-500 bg-amber-500/5" 
+                  ? "border-brand-bronze text-brand-bronze bg-brand-bronze/5" 
                   : "border-transparent text-zinc-400 hover:text-white hover:bg-white/5"
               }`}
             >
@@ -148,7 +148,7 @@ export default function LitterManagerClient({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="md:col-span-2">
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Título da Ninhada *</label>
-                <input name="title" required defaultValue={litter.title || ""} placeholder="Ex: Ninhada Alpha - Dachshund Pelo Longo" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="title" required defaultValue={litter.title || ""} placeholder="Ex: Ninhada Alpha - Dachshund Pelo Longo" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
               
               <div>
@@ -173,7 +173,7 @@ export default function LitterManagerClient({
 
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Status da Reprodução</label>
-                <select name="status" defaultValue={litter.status || "PLANEJADA"} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors">
+                <select name="status" defaultValue={litter.status || "PLANEJADA"} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors">
                   <option value="PLANEJADA">Acasalamento Planejado / Realizado</option>
                   <option value="NASCIDA">Nascida (Acompanhamento)</option>
                   <option value="DISPONIVEL">Disponível para Reserva/Venda</option>
@@ -183,21 +183,21 @@ export default function LitterManagerClient({
 
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Preço Base (R$)</label>
-                <input name="price" type="number" step="0.01" defaultValue={litter.price || ""} placeholder="Ex: 3500.00" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="price" type="number" step="0.01" defaultValue={litter.price || ""} placeholder="Ex: 3500.00" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 md:col-span-2 gap-4">
                 <div>
                   <label className="block text-xs font-medium text-zinc-400 mb-1">Data do Acasalamento</label>
-                  <input name="matingDate" type="date" defaultValue={fmtDate(litter.matingDate)} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                  <input name="matingDate" type="date" defaultValue={fmtDate(litter.matingDate)} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-zinc-400 mb-1">Previsão de Parto</label>
-                  <input name="expectedBirthDate" type="date" defaultValue={fmtDate(litter.expectedBirthDate)} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                  <input name="expectedBirthDate" type="date" defaultValue={fmtDate(litter.expectedBirthDate)} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-zinc-400 mb-1">Data Real Nascimento</label>
-                  <input name="birthDate" type="date" defaultValue={fmtDate(litter.birthDate)} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                  <input name="birthDate" type="date" defaultValue={fmtDate(litter.birthDate)} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
                 </div>
               </div>
             </div>
@@ -213,7 +213,7 @@ export default function LitterManagerClient({
               <button 
                 type="button" 
                 onClick={addPuppy}
-                className="px-4 py-2 bg-amber-600/20 text-amber-500 border border-amber-500/20 rounded-lg text-xs font-bold hover:bg-amber-600 hover:text-white transition-all flex items-center gap-2"
+                className="px-4 py-2 bg-brand-bronze/20 text-brand-bronze border border-brand-bronze/20 rounded-lg text-xs font-bold hover:bg-brand-bronze hover:text-white transition-all flex items-center gap-2"
               >
                 <span>+</span> Adicionar Filhote
               </button>
@@ -256,7 +256,7 @@ export default function LitterManagerClient({
                       <select 
                         value={puppy.sex || "M"} 
                         onChange={(e) => updatePuppy(index, "sex", e.target.value)}
-                        className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none border-amber-500/30"
+                        className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none border-brand-bronze/30"
                       >
                         <option value="M">♂ Macho</option>
                         <option value="F">♀ Fêmea</option>
@@ -311,7 +311,7 @@ export default function LitterManagerClient({
           {/* TAB 3: Fotos */}
           <div className={activeTab === 3 ? "block space-y-5" : "hidden"}>
             <div 
-              className="p-8 border-2 border-dashed border-white/15 rounded-xl bg-zinc-950/50 text-center cursor-pointer hover:border-amber-500/40"
+              className="p-8 border-2 border-dashed border-white/15 rounded-xl bg-zinc-950/50 text-center cursor-pointer hover:border-brand-bronze/40"
               onClick={() => fileInputRef.current?.click()}
             >
               <input 
@@ -351,7 +351,7 @@ export default function LitterManagerClient({
             <button 
               type="submit" 
               disabled={loading}
-              className="px-8 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors shadow-lg shadow-amber-500/20 disabled:opacity-50"
+              className="px-8 py-3 bg-brand-bronze text-white rounded-lg font-semibold hover:bg-brand-gold transition-colors shadow-lg shadow-brand-bronze/20 disabled:opacity-50"
             >
               {loading ? "Salvando..." : "✓ Salvar Ninhada"}
             </button>

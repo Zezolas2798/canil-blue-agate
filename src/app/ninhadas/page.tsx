@@ -22,12 +22,12 @@ export default async function LittersPage() {
   return (
     <div className="bg-white min-h-screen">
       {/* Page Header */}
-      <section className="bg-[#001F3F] py-32 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(197,160,89,0.05)_0%,transparent_70%)]" />
+      <section className="bg-brand-blue py-32 text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(158,122,44,0.08)_0%,transparent_70%)]" />
         <div className="relative z-10 max-w-4xl mx-auto px-6">
           <div className="flex flex-col items-center gap-4 mb-6">
-             <div className="w-10 h-[1px] bg-[#C5A059]" />
-             <span className="text-[#C5A059] text-[10px] tracking-[0.4em] uppercase font-bold">Futuro da Linhagem</span>
+             <div className="w-10 h-[1px] bg-brand-bronze" />
+             <span className="text-brand-bronze text-[10px] tracking-[0.4em] uppercase font-bold">Futuro da Linhagem</span>
           </div>
           <h1 className="font-serif text-5xl md:text-7xl text-white mb-8">Nossas Ninhadas</h1>
           <p className="text-white/50 max-w-2xl mx-auto text-base md:text-lg font-light tracking-wide italic">
@@ -60,7 +60,7 @@ export default async function LittersPage() {
                   
                   {/* Status Overlay */}
                   <div className="absolute top-6 left-6">
-                    <span className="bg-[#C5A059] text-white text-[9px] font-bold tracking-[0.2em] uppercase px-4 py-1.5 rounded-sm">
+                    <span className="bg-brand-bronze text-white text-[9px] font-bold tracking-[0.2em] uppercase px-4 py-1.5 rounded-sm">
                       {litter.status}
                     </span>
                   </div>
@@ -69,10 +69,10 @@ export default async function LittersPage() {
                 <div className="w-full md:w-1/2 flex flex-col justify-between py-2">
                   <div className="space-y-6">
                     <div className="space-y-2">
-                      <span className="text-[#C5A059] text-[10px] tracking-[0.3em] uppercase font-bold">
+                      <span className="text-brand-bronze text-[10px] tracking-[0.3em] uppercase font-bold">
                         {litter.birthDate ? new Date(litter.birthDate!).toLocaleDateString("pt-BR") : "Data Planejada"}
                       </span>
-                      <h2 className="font-serif text-3xl md:text-4xl text-[#001F3F] leading-tight group-hover:text-[#C5A059] transition-colors">
+                      <h2 className="font-serif text-3xl md:text-4xl text-brand-blue leading-tight group-hover:text-brand-bronze transition-colors">
                         {litter.title || "Ninhada Exclusiva"}
                       </h2>
                     </div>
@@ -82,12 +82,12 @@ export default async function LittersPage() {
                       <div className="flex gap-8 items-center">
                         <div className="flex flex-col">
                           <span className="text-[9px] text-zinc-400 uppercase tracking-widest mb-1">Pai (Sire)</span>
-                          <span className="text-[#001F3F] text-sm font-medium">{litter.sire?.nickname || "Pai Selecionado"}</span>
+                          <span className="text-brand-blue text-sm font-medium">{litter.sire?.nickname || "Pai Selecionado"}</span>
                         </div>
                         <div className="w-[1px] h-8 bg-zinc-100" />
                         <div className="flex flex-col">
                           <span className="text-[9px] text-zinc-400 uppercase tracking-widest mb-1">Mãe (Dam)</span>
-                          <span className="text-[#001F3F] text-sm font-medium">{litter.dam?.nickname || "Mãe Selecionada"}</span>
+                          <span className="text-brand-blue text-sm font-medium">{litter.dam?.nickname || "Mãe Selecionada"}</span>
                         </div>
                       </div>
                     </div>

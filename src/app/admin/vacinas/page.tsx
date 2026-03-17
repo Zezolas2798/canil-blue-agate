@@ -96,7 +96,7 @@ export default async function AdminVaccines() {
                 ))}
               </select>
             </div>
-            <button type="submit" className="w-full py-2.5 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors text-sm mt-1">
+            <button type="submit" className="w-full py-2.5 bg-brand-bronze text-white rounded-lg font-semibold hover:bg-brand-gold transition-colors text-sm mt-1">
               Agendar
             </button>
           </form>
@@ -132,7 +132,7 @@ export default async function AdminVaccines() {
                       <td className="px-4 py-3">{new Date(v.dueDate).toLocaleDateString("pt-BR")}</td>
                       <td className="px-4 py-3">
                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider ${
-                          v.status === "ATRASADA" ? "bg-red-500/20 text-red-400" : "bg-amber-500/20 text-amber-400"
+                          v.status === "ATRASADA" ? "bg-red-500/20 text-red-400" : "bg-brand-gold/20 text-brand-gold"
                         }`}>
                           {v.status}
                         </span>

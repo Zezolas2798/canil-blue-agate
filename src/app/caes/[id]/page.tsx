@@ -42,18 +42,18 @@ export default async function DogDetailPage({ params }: { params: Promise<{ id: 
 
   return (
     <div className="bg-white min-h-screen">
-      {/* Page Header: Navy */}
-      <section className="bg-[#001F3F] py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(197,160,89,0.08)_0%,transparent_70%)]" />
+      {/* Page Header: Brand Blue */}
+      <section className="bg-brand-blue py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(158,122,44,0.08)_0%,transparent_70%)]" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <Link href="/caes" className="text-white/40 hover:text-[#C5A059] transition-colors text-xs tracking-widest uppercase flex items-center gap-3 mb-12">
+          <Link href="/caes" className="text-white/40 hover:text-brand-bronze transition-colors text-xs tracking-widest uppercase flex items-center gap-3 mb-12">
             <span className="w-8 h-[1px] bg-white/20" />
             Voltar ao Plantel
           </Link>
           
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="space-y-4">
-              <span className="text-[#C5A059] text-[10px] tracking-[0.4em] uppercase font-bold">Resumo Genético</span>
+              <span className="text-brand-bronze text-[10px] tracking-[0.4em] uppercase font-bold">Resumo Genético</span>
               <h1 className="font-serif text-5xl md:text-7xl text-white">{dog.nickname || dog.name}</h1>
               {dog.registrationName && (
                 <p className="text-white/40 font-serif text-xl italic tracking-wide">{dog.registrationName}</p>
@@ -61,7 +61,7 @@ export default async function DogDetailPage({ params }: { params: Promise<{ id: 
             </div>
             
             <div className="flex items-center gap-4">
-               <div className="px-6 py-2 border border-[#C5A059]/30 rounded-sm text-[#C5A059] text-[10px] font-bold tracking-[0.2em] uppercase">
+               <div className="px-6 py-2 border border-brand-bronze/30 rounded-sm text-brand-bronze text-[10px] font-bold tracking-[0.2em] uppercase">
                  {dog.status}
                </div>
             </div>
@@ -98,62 +98,62 @@ export default async function DogDetailPage({ params }: { params: Promise<{ id: 
           {/* Detailed Info */}
           <div className="flex flex-col justify-center gap-12 text-[#333F48]">
             <div className="space-y-6">
-               <h3 className="font-serif text-3xl text-[#001F3F]">Perfil Técnico</h3>
-               <div className="w-16 h-[1px] bg-[#C5A059]" />
+               <h3 className="font-serif text-3xl text-brand-blue">Perfil Técnico</h3>
+               <div className="w-16 h-[1px] bg-brand-bronze" />
             </div>
 
             <div className="grid grid-cols-2 gap-y-10 gap-x-12">
               <div>
-                <p className="text-[9px] uppercase tracking-[0.3em] text-[#C5A059] font-bold mb-2">Raça / Variedade</p>
-                <p className="text-[#001F3F] text-lg font-light tracking-wide">{dog.breed} {dog.variety && <span className="text-zinc-400 font-serif italic text-sm">({dog.variety})</span>}</p>
+                <p className="text-[9px] uppercase tracking-[0.3em] text-brand-bronze font-bold mb-2">Raça / Variedade</p>
+                <p className="text-brand-blue text-lg font-light tracking-wide">{dog.breed} {dog.variety && <span className="text-zinc-400 font-serif italic text-sm">({dog.variety})</span>}</p>
               </div>
               <div>
-                <p className="text-[9px] uppercase tracking-[0.3em] text-[#C5A059] font-bold mb-2">Sexo</p>
-                <p className="text-[#001F3F] text-lg font-light tracking-wide">{dog.sex === "M" ? "Macho" : "Fêmea"}</p>
+                <p className="text-[9px] uppercase tracking-[0.3em] text-brand-bronze font-bold mb-2">Sexo</p>
+                <p className="text-brand-blue text-lg font-light tracking-wide">{dog.sex === "M" ? "Macho" : "Fêmea"}</p>
               </div>
               <div>
-                <p className="text-[9px] uppercase tracking-[0.3em] text-[#C5A059] font-bold mb-2">Tonalidade</p>
-                <p className="text-[#001F3F] text-lg font-light tracking-wide">{dog.color}</p>
+                <p className="text-[9px] uppercase tracking-[0.3em] text-brand-bronze font-bold mb-2">Tonalidade</p>
+                <p className="text-brand-blue text-lg font-light tracking-wide">{dog.color}</p>
               </div>
               {dog.birthDate && (
                 <div className="flex flex-col gap-4">
                   <div>
-                    <p className="text-[9px] uppercase tracking-[0.3em] text-[#C5A059] font-bold mb-2">Nascimento</p>
-                    <p className="text-[#001F3F] text-lg font-light tracking-wide">{new Date(dog.birthDate).toLocaleDateString("pt-BR")}</p>
+                    <p className="text-[9px] uppercase tracking-[0.3em] text-brand-bronze font-bold mb-2">Nascimento</p>
+                    <p className="text-brand-blue text-lg font-light tracking-wide">{new Date(dog.birthDate).toLocaleDateString("pt-BR")}</p>
                   </div>
                   <div>
-                    <p className="text-[9px] uppercase tracking-[0.3em] text-[#C5A059] font-bold mb-2">Idade Atual</p>
-                    <p className="text-[#001F3F] text-lg font-light tracking-wide">{calculateAge(dog.birthDate)}</p>
+                    <p className="text-[9px] uppercase tracking-[0.3em] text-brand-bronze font-bold mb-2">Idade Atual</p>
+                    <p className="text-brand-blue text-lg font-light tracking-wide">{calculateAge(dog.birthDate)}</p>
                   </div>
                 </div>
               )}
               {dog.pedigreeId && (
                 <div className="col-span-2">
-                  <p className="text-[9px] uppercase tracking-[0.3em] text-[#C5A059] font-bold mb-2">Registro Pedigree</p>
-                  <p className="text-[#001F3F] text-lg font-mono tracking-widest">{dog.pedigreeId}</p>
+                  <p className="text-[9px] uppercase tracking-[0.3em] text-brand-bronze font-bold mb-2">Registro Pedigree</p>
+                  <p className="text-brand-blue text-lg font-mono tracking-widest">{dog.pedigreeId}</p>
                 </div>
               )}
             </div>
 
             {/* Health Section - Refined */}
             <div className="p-10 border border-zinc-100 rounded-sm bg-zinc-50/50 space-y-8 mt-4">
-              <h4 className="text-[10px] font-bold text-[#001F3F] uppercase tracking-[0.4em]">Certificados de Saúde</h4>
+              <h4 className="text-[10px] font-bold text-brand-blue uppercase tracking-[0.4em]">Certificados de Saúde</h4>
               <div className="grid grid-cols-2 gap-x-8 gap-y-6">
-                <div className="flex flex-col border-l border-[#C5A059]/20 pl-4">
+                <div className="flex flex-col border-l border-brand-bronze/20 pl-4">
                   <span className="text-[8px] text-zinc-400 uppercase tracking-widest mb-1">COI Index</span>
-                  <span className="text-[#001F3F] text-sm font-semibold">{dog.coi || "Auditado"}</span>
+                  <span className="text-brand-blue text-sm font-semibold">{dog.coi || "Auditado"}</span>
                 </div>
-                <div className="flex flex-col border-l border-[#C5A059]/20 pl-4">
+                <div className="flex flex-col border-l border-brand-bronze/20 pl-4">
                   <span className="text-[8px] text-zinc-400 uppercase tracking-widest mb-1">Disf. Coxo-Femural</span>
-                  <span className="text-[#001F3F] text-sm font-semibold">{dog.hipDysplasia || "Normal / Livre"}</span>
+                  <span className="text-brand-blue text-sm font-semibold">{dog.hipDysplasia || "Normal / Livre"}</span>
                 </div>
-                <div className="flex flex-col border-l border-[#C5A059]/20 pl-4">
+                <div className="flex flex-col border-l border-brand-bronze/20 pl-4">
                   <span className="text-[8px] text-zinc-400 uppercase tracking-widest mb-1">Disf. Cotovelo</span>
-                  <span className="text-[#001F3F] text-sm font-semibold">{dog.elbowDysplasia || "Normal / Livre"}</span>
+                  <span className="text-brand-blue text-sm font-semibold">{dog.elbowDysplasia || "Normal / Livre"}</span>
                 </div>
-                <div className="flex flex-col border-l border-[#C5A059]/20 pl-4">
+                <div className="flex flex-col border-l border-brand-bronze/20 pl-4">
                   <span className="text-[8px] text-zinc-400 uppercase tracking-widest mb-1">Luxação Patela</span>
-                  <span className="text-[#001F3F] text-sm font-semibold">{dog.patellaLuxation || "Grau 0"}</span>
+                  <span className="text-brand-blue text-sm font-semibold">{dog.patellaLuxation || "Grau 0"}</span>
                 </div>
               </div>
             </div>
@@ -163,8 +163,8 @@ export default async function DogDetailPage({ params }: { params: Promise<{ id: 
         {/* Pedigree Section */}
         <section className="mb-32">
           <div className="flex flex-col items-center text-center gap-6 mb-16">
-            <span className="text-[#C5A059] text-[10px] tracking-[0.4em] uppercase font-bold">Linhagem de 3 Gerações</span>
-            <h2 className="font-serif text-4xl md:text-5xl text-[#001F3F]">Árvore Genealógica</h2>
+            <span className="text-brand-bronze text-[10px] tracking-[0.4em] uppercase font-bold">Linhagem de 3 Gerações</span>
+            <h2 className="font-serif text-4xl md:text-5xl text-brand-blue">Árvore Genealógica</h2>
             <div className="w-12 h-[1px] bg-zinc-100" />
           </div>
           <div className="overflow-hidden rounded-sm border border-zinc-100 p-8 md:p-12 shadow-sm bg-white">
@@ -176,15 +176,15 @@ export default async function DogDetailPage({ params }: { params: Promise<{ id: 
         {allLitters.length > 0 && (
           <section className="mb-32">
             <div className="flex flex-col items-center text-center gap-6 mb-16">
-              <span className="text-[#C5A059] text-[10px] tracking-[0.4em] uppercase font-bold">Legado</span>
-              <h2 className="font-serif text-4xl md:text-5xl text-[#001F3F]">Descendentes</h2>
+              <span className="text-brand-bronze text-[10px] tracking-[0.4em] uppercase font-bold">Legado</span>
+              <h2 className="font-serif text-4xl md:text-5xl text-brand-blue">Descendentes</h2>
               <div className="w-12 h-[1px] bg-zinc-100" />
             </div>
             <div className="space-y-4">
               {allLitters.map((litter) => (
                 <div key={litter.id} className="group border-b border-zinc-100 py-8 flex flex-col md:flex-row items-center justify-between transition-all hover:px-6 hover:bg-zinc-50">
                   <div className="text-center md:text-left space-y-1">
-                    <h3 className="text-[#001F3F] font-serif text-2xl group-hover:text-[#C5A059] transition-colors">{litter.title || `Ninhada ${new Date(litter.createdAt).getFullYear()}`}</h3>
+                    <h3 className="text-brand-blue font-serif text-2xl group-hover:text-brand-bronze transition-colors">{litter.title || `Ninhada ${new Date(litter.createdAt).getFullYear()}`}</h3>
                     <p className="text-zinc-400 text-[10px] tracking-widest uppercase">{litter.birthDate ? new Date(litter.birthDate).toLocaleDateString("pt-BR") : "Data indefinida"}</p>
                   </div>
                   <div className="flex flex-wrap justify-center gap-2 my-6 md:my-0">
@@ -205,7 +205,7 @@ export default async function DogDetailPage({ params }: { params: Promise<{ id: 
 
         {/* Footer CTA */}
         <div className="py-32 border-t border-zinc-100 text-center">
-           <h3 className="font-serif text-4xl text-[#001F3F] mb-6 tracking-tight">Interessado nesta Linhagem?</h3>
+           <h3 className="font-serif text-4xl text-brand-blue mb-6 tracking-tight">Interessado nesta Linhagem?</h3>
            <p className="text-zinc-400 mb-10 max-w-xl mx-auto font-light tracking-wide leading-relaxed">Nossas futuras ninhadas são planejadas para herdar a excelência genética de cães como {dog.nickname || dog.name}.</p>
            <Link href="/ninhadas" className="btn-gold px-12 py-4 inline-block">
               Ver Futuras Ninhadas

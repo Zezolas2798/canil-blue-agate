@@ -146,7 +146,7 @@ export default function DogManagerClient({
               onClick={() => setActiveTab(tab.id)}
               className={`px-5 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors flex items-center gap-2 ${
                 activeTab === tab.id 
-                  ? "border-amber-500 text-amber-500 bg-amber-500/5" 
+                  ? "border-brand-bronze text-brand-bronze bg-brand-bronze/5" 
                   : "border-transparent text-zinc-400 hover:text-white hover:bg-white/5"
               }`}
             >
@@ -187,7 +187,7 @@ export default function DogManagerClient({
                 <button
                   type="button"
                   onClick={() => profileInputRef.current?.click()}
-                  className="absolute -bottom-1 -right-1 w-8 h-8 bg-amber-600 hover:bg-amber-500 text-white rounded-full flex items-center justify-center shadow-lg transition-colors"
+                  className="absolute -bottom-1 -right-1 w-8 h-8 bg-brand-bronze hover:bg-brand-gold text-white rounded-full flex items-center justify-center shadow-lg transition-colors"
                 >
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
@@ -209,76 +209,76 @@ export default function DogManagerClient({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Nome Comum *</label>
-                <input name="name" required defaultValue={dog.name || ""} placeholder="Ex: Brisa" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="name" required defaultValue={dog.name || ""} placeholder="Ex: Brisa" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Apelido</label>
-                <input name="nickname" defaultValue={dog.nickname || ""} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="nickname" defaultValue={dog.nickname || ""} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Nome de Registro (Afixo)</label>
-                <input name="registrationName" defaultValue={dog.registrationName || ""} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="registrationName" defaultValue={dog.registrationName || ""} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Sistema Cartorial</label>
-                <input name="registrySystem" defaultValue={dog.registrySystem || ""} placeholder="Ex: CBKC, ALKC" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="registrySystem" defaultValue={dog.registrySystem || ""} placeholder="Ex: CBKC, ALKC" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Raça *</label>
-                <input name="breed" required defaultValue={dog.breed || "Dachshund"} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="breed" required defaultValue={dog.breed || "Dachshund"} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Variedade</label>
-                <input name="variety" defaultValue={dog.variety || ""} placeholder="Ex: Miniatura Pelo Longo" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="variety" defaultValue={dog.variety || ""} placeholder="Ex: Miniatura Pelo Longo" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Sexo *</label>
-                <select name="sex" defaultValue={dog.sex || "M"} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors">
+                <select name="sex" defaultValue={dog.sex || "M"} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors">
                   <option value="M">♂ Macho</option>
                   <option value="F">♀ Fêmea</option>
                 </select>
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Cor *</label>
-                <input name="color" required defaultValue={dog.color || ""} placeholder="Ex: Arlequim" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="color" required defaultValue={dog.color || ""} placeholder="Ex: Arlequim" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
               <div>
                 <label className="flex justify-between items-center text-xs font-medium text-zinc-400 mb-1">
                   <span>Data de Nascimento</span>
                   {dog.birthDate && (
-                    <span className="text-amber-500 font-bold uppercase tracking-widest text-[10px]">
+                    <span className="text-brand-bronze font-bold uppercase tracking-widest text-[10px]">
                       {calculateAge(dog.birthDate)}
                     </span>
                   )}
                 </label>
-                <input name="birthDate" type="date" defaultValue={fmtDate(dog.birthDate)} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="birthDate" type="date" defaultValue={fmtDate(dog.birthDate)} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Data de Chegada</label>
-                <input name="arrivalDate" type="date" defaultValue={fmtDate(dog.arrivalDate)} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="arrivalDate" type="date" defaultValue={fmtDate(dog.arrivalDate)} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Altura (cm)</label>
-                <input name="height" type="number" step="0.1" defaultValue={dog.height || ""} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="height" type="number" step="0.1" defaultValue={dog.height || ""} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Nacionalidade</label>
-                <input name="nationality" defaultValue={dog.nationality || ""} placeholder="Ex: Brasileira" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="nationality" defaultValue={dog.nationality || ""} placeholder="Ex: Brasileira" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Temperamento</label>
-                <input name="temperament" defaultValue={dog.temperament || ""} placeholder="Ex: Dócil, Ativo" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="temperament" defaultValue={dog.temperament || ""} placeholder="Ex: Dócil, Ativo" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Mostrar Árvore Genealógica?</label>
-                <select name="showGenealogy" defaultValue={dog.showGenealogy !== false ? "true" : "false"} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors">
+                <select name="showGenealogy" defaultValue={dog.showGenealogy !== false ? "true" : "false"} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors">
                   <option value="true">Sim</option>
                   <option value="false">Não</option>
                 </select>
               </div>
               <div className="md:col-span-2">
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Observações</label>
-                <textarea name="notes" rows={3} defaultValue={dog.notes || ""} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm resize-none focus:outline-none focus:border-amber-500 transition-colors"></textarea>
+                <textarea name="notes" rows={3} defaultValue={dog.notes || ""} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm resize-none focus:outline-none focus:border-brand-bronze transition-colors"></textarea>
               </div>
             </div>
           </div>
@@ -290,11 +290,11 @@ export default function DogManagerClient({
 
             {/* Upload Area */}
             <div 
-              className="p-8 border-2 border-dashed border-white/15 rounded-xl bg-zinc-950/50 text-center cursor-pointer hover:border-amber-500/40 hover:bg-amber-500/5 transition-colors"
+              className="p-8 border-2 border-dashed border-white/15 rounded-xl bg-zinc-950/50 text-center cursor-pointer hover:border-brand-bronze/40 hover:bg-brand-bronze/5 transition-colors"
               onClick={() => fileInputRef.current?.click()}
-              onDragOver={(e) => { e.preventDefault(); e.currentTarget.classList.add("border-amber-500", "bg-amber-500/10"); }}
-              onDragLeave={(e) => { e.preventDefault(); e.currentTarget.classList.remove("border-amber-500", "bg-amber-500/10"); }}
-              onDrop={(e) => { e.preventDefault(); e.currentTarget.classList.remove("border-amber-500", "bg-amber-500/10"); handleUpload(e.dataTransfer.files); }}
+              onDragOver={(e) => { e.preventDefault(); e.currentTarget.classList.add("border-brand-bronze", "bg-brand-bronze/10"); }}
+              onDragLeave={(e) => { e.preventDefault(); e.currentTarget.classList.remove("border-brand-bronze", "bg-brand-bronze/10"); }}
+              onDrop={(e) => { e.preventDefault(); e.currentTarget.classList.remove("border-brand-bronze", "bg-brand-bronze/10"); handleUpload(e.dataTransfer.files); }}
             >
               <input 
                 ref={fileInputRef}
@@ -306,8 +306,8 @@ export default function DogManagerClient({
               />
               {uploading ? (
                 <>
-                  <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-                  <p className="text-amber-400 text-sm font-medium">Enviando...</p>
+                  <div className="w-8 h-8 border-2 border-brand-bronze border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+                  <p className="text-brand-gold text-sm font-medium">Enviando...</p>
                 </>
               ) : (
                 <>
@@ -340,7 +340,7 @@ export default function DogManagerClient({
                         </button>
                       </div>
                       {i === 0 && !profilePhoto && (
-                        <span className="absolute top-2 left-2 px-2 py-0.5 bg-amber-500 text-[10px] font-bold text-black rounded-full">CAPA</span>
+                        <span className="absolute top-2 left-2 px-2 py-0.5 bg-brand-bronze text-[10px] font-bold text-white rounded-full">CAPA</span>
                       )}
                       {url === profilePhoto && (
                         <span className="absolute top-2 left-2 px-2 py-0.5 bg-green-500 text-[10px] font-bold text-white rounded-full">PERFIL</span>
@@ -350,7 +350,7 @@ export default function DogManagerClient({
                         <button
                           type="button"
                           onClick={() => setProfilePhoto(url)}
-                          className="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity px-2 py-1 bg-white/90 text-[10px] font-bold text-black rounded-lg hover:bg-amber-400"
+                          className="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity px-2 py-1 bg-white/90 text-[10px] font-bold text-black rounded-lg hover:bg-brand-gold"
                         >
                           Definir Perfil
                         </button>
@@ -365,33 +365,33 @@ export default function DogManagerClient({
           {/* TAB 3: Dados Complementares */}
           <div className={activeTab === 3 ? "block space-y-8" : "hidden"}>
             <div>
-              <p className="text-xs font-bold text-amber-500 uppercase tracking-widest mb-4 border-b border-white/10 pb-2">Identificação Eletrônica</p>
+              <p className="text-xs font-bold text-brand-gold uppercase tracking-widest mb-4 border-b border-white/10 pb-2">Identificação Eletrônica</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs font-medium text-zinc-400 mb-1">Nº Microchip</label>
-                  <input name="microchip" defaultValue={dog.microchip || ""} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm font-mono focus:outline-none focus:border-amber-500 transition-colors" />
+                  <input name="microchip" defaultValue={dog.microchip || ""} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm font-mono focus:outline-none focus:border-brand-bronze transition-colors" />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-zinc-400 mb-1">Data da Microchipagem</label>
-                  <input name="microchipDate" type="date" defaultValue={fmtDate(dog.microchipDate)} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                  <input name="microchipDate" type="date" defaultValue={fmtDate(dog.microchipDate)} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-zinc-400 mb-1">Perfil de DNA</label>
-                  <input name="dnaProfile" defaultValue={dog.dnaProfile || ""} placeholder="ID Científico do DNA" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm font-mono focus:outline-none focus:border-amber-500 transition-colors" />
+                  <input name="dnaProfile" defaultValue={dog.dnaProfile || ""} placeholder="ID Científico do DNA" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm font-mono focus:outline-none focus:border-brand-bronze transition-colors" />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-zinc-400 mb-1">Tag / Placa / ID Interno</label>
-                  <input name="tagId" defaultValue={dog.tagId || ""} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                  <input name="tagId" defaultValue={dog.tagId || ""} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
                 </div>
               </div>
             </div>
 
             <div>
-              <p className="text-xs font-bold text-amber-500 uppercase tracking-widest mb-4 border-b border-white/10 pb-2">Exibição / Status</p>
+              <p className="text-xs font-bold text-brand-gold uppercase tracking-widest mb-4 border-b border-white/10 pb-2">Exibição / Status</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs font-medium text-zinc-400 mb-1">Status no Plantel *</label>
-                  <select name="status" defaultValue={dog.status || "ATIVO"} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors">
+                  <select name="status" defaultValue={dog.status || "ATIVO"} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors">
                     <option value="ATIVO">Ativo (Reprodutor/Matriz)</option>
                     <option value="APOSENTADO">Aposentado</option>
                     <option value="VENDIDO">Vendido</option>
@@ -402,23 +402,23 @@ export default function DogManagerClient({
             </div>
 
             <div>
-              <p className="text-xs font-bold text-amber-500 uppercase tracking-widest mb-4 border-b border-white/10 pb-2">Saúde (Profilaxia)</p>
+              <p className="text-xs font-bold text-brand-gold uppercase tracking-widest mb-4 border-b border-white/10 pb-2">Saúde (Profilaxia)</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs font-medium text-zinc-400 mb-1">COI (Coeficiente de Endogamia)</label>
-                  <input name="coi" defaultValue={dog.coi || ""} placeholder="Ex: 5%" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                  <input name="coi" defaultValue={dog.coi || ""} placeholder="Ex: 5%" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-zinc-400 mb-1">Displasia Coxo-Femural</label>
-                  <input name="hipDysplasia" defaultValue={dog.hipDysplasia || ""} placeholder="Ex: HD-A (Livre)" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                  <input name="hipDysplasia" defaultValue={dog.hipDysplasia || ""} placeholder="Ex: HD-A (Livre)" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-zinc-400 mb-1">Displasia de Cotovelo</label>
-                  <input name="elbowDysplasia" defaultValue={dog.elbowDysplasia || ""} placeholder="Ex: ED-0 (Livre)" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                  <input name="elbowDysplasia" defaultValue={dog.elbowDysplasia || ""} placeholder="Ex: ED-0 (Livre)" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-zinc-400 mb-1">Luxação de Patela</label>
-                  <input name="patellaLuxation" defaultValue={dog.patellaLuxation || ""} placeholder="Ex: Grau 0" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" />
+                  <input name="patellaLuxation" defaultValue={dog.patellaLuxation || ""} placeholder="Ex: Grau 0" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
                 </div>
               </div>
             </div>
@@ -429,7 +429,7 @@ export default function DogManagerClient({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Nº do Pedigree</label>
-                <input name="pedigreeId" defaultValue={dog.pedigreeId || ""} placeholder="Ex: FOX12345BR" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm font-mono focus:outline-none focus:border-amber-500 transition-colors" />
+                <input name="pedigreeId" defaultValue={dog.pedigreeId || ""} placeholder="Ex: FOX12345BR" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm font-mono focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
             </div>
 
@@ -440,7 +440,7 @@ export default function DogManagerClient({
                 <select 
                   name="sireId" 
                   defaultValue={dog.sireId || ""} 
-                  className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                  className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors"
                 >
                   <option value="">-- Selecionar Pai --</option>
                   {dogs.filter(d => d.sex === "M" && d.id !== dog.id).map(d => (
@@ -465,12 +465,12 @@ export default function DogManagerClient({
               </div>
             </div>
 
-            <div className="bg-amber-500/10 border border-amber-500/20 p-5 rounded-xl mt-4">
-              <p className="text-amber-400 text-sm font-medium mb-4">🌳 Árvore Genealógica</p>
+            <div className="bg-brand-gold/10 border-brand-gold/20 p-5 rounded-xl mt-4">
+              <p className="text-brand-gold text-sm font-medium mb-4">🌳 Árvore Genealógica</p>
               {isEdit && (dog.sire || dog.dam) ? (
                 <PedigreeTree dog={dog} />
               ) : (
-                <p className="text-amber-500/70 text-xs mt-1">
+                <p className="text-brand-gold/70 text-xs mt-1">
                   Ao selecionar o pai e a mãe acima e salvar, o sistema montará automaticamente a árvore de 3 gerações baseada nos registros existentes.
                 </p>
               )}
@@ -523,7 +523,7 @@ export default function DogManagerClient({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
               </svg>
               <p className="text-sm text-zinc-400 mb-3">Cole os links do YouTube ou Instagram Reels separados por vírgula</p>
-              <textarea name="videos" rows={2} defaultValue={parseMedia(dog.videos)} placeholder="https://youtube.com/..., https://instagram.com/..." className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm font-mono resize-none focus:outline-none focus:border-amber-500 transition-colors"></textarea>
+              <textarea name="videos" rows={2} defaultValue={parseMedia(dog.videos)} placeholder="https://youtube.com/..., https://instagram.com/..." className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm font-mono resize-none focus:outline-none focus:border-brand-bronze transition-colors"></textarea>
             </div>
           </div>
 
@@ -535,7 +535,7 @@ export default function DogManagerClient({
             <button 
               type="submit" 
               disabled={loading}
-              className="px-8 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors shadow-lg shadow-amber-500/20 disabled:opacity-50"
+              className="px-8 py-3 bg-brand-bronze text-white rounded-lg font-semibold hover:bg-brand-gold transition-colors shadow-lg shadow-brand-bronze/20 disabled:opacity-50"
             >
               {loading 
                 ? "Salvando..." 

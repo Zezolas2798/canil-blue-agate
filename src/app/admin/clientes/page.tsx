@@ -58,7 +58,7 @@ export default async function AdminClients() {
               <label className="block text-xs font-medium text-zinc-400 mb-1">Endereço</label>
               <input name="address" placeholder="Rua, Nº – Cidade/UF" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2 text-white text-sm" />
             </div>
-            <button type="submit" className="w-full py-2.5 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors text-sm mt-1">
+            <button type="submit" className="w-full py-2.5 bg-brand-bronze text-white rounded-lg font-semibold hover:bg-brand-gold transition-colors text-sm mt-1">
               Salvar Cliente
             </button>
           </form>
@@ -83,7 +83,7 @@ export default async function AdminClients() {
                     {c.address && <p className="text-xs text-zinc-600 mt-0.5">{c.address}</p>}
                   </div>
                   {c.puppiesBought.length > 0 && (
-                    <span className="text-xs px-2 py-1 bg-amber-500/10 text-amber-400 rounded-full">
+                    <span className="text-xs px-2 py-1 bg-brand-gold/10 text-brand-gold rounded-full">
                       {c.puppiesBought.length} filhote(s)
                     </span>
                   )}

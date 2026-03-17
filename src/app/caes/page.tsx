@@ -17,12 +17,12 @@ export default async function DogsPage() {
   return (
     <div className="bg-white min-h-screen">
       {/* Page Header */}
-      <section className="bg-[#001F3F] py-32 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(197,160,89,0.05)_0%,transparent_70%)]" />
+      <section className="bg-brand-blue py-32 text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(158,122,44,0.05)_0%,transparent_70%)]" />
         <div className="relative z-10 max-w-4xl mx-auto px-6">
           <div className="flex flex-col items-center gap-4 mb-6">
-             <div className="w-10 h-[1px] bg-[#C5A059]" />
-             <span className="text-[#C5A059] text-[10px] tracking-[0.4em] uppercase font-medium">Linhagem de Elite</span>
+             <div className="w-10 h-[1px] bg-brand-bronze" />
+             <span className="text-brand-bronze text-[10px] tracking-[0.4em] uppercase font-medium">Linhagem de Elite</span>
           </div>
           <h1 className="font-serif text-5xl md:text-7xl text-white mb-8">Nosso Plantel</h1>
           <p className="text-white/50 max-w-2xl mx-auto text-base md:text-lg font-light tracking-wide italic">
@@ -43,7 +43,7 @@ export default async function DogsPage() {
               <Link href={`/caes/${dog.id}`} key={dog.id} className="group flex flex-col">
                 <div className="relative aspect-square overflow-hidden bg-zinc-50 rounded-sm mb-4 transition-all duration-700 group-hover:shadow-2xl">
                   {/* Subtle overlay */}
-                  <div className="absolute inset-0 bg-[#001F3F]/0 group-hover:bg-[#001F3F]/10 transition-colors duration-500 z-10" />
+                  <div className="absolute inset-0 bg-brand-blue/0 group-hover:bg-brand-blue/10 transition-colors duration-500 z-10" />
                   
                   {(dog.profilePhoto || dog.media) ? (
                     <Image 
@@ -60,7 +60,7 @@ export default async function DogsPage() {
                   
                   {/* Status Badge: Minimalist */}
                   <div className="absolute top-4 left-4 z-20">
-                    <span className="bg-white/90 backdrop-blur-sm text-[#001F3F] text-[8px] font-bold tracking-[0.2em] uppercase px-3 py-1 rounded-sm shadow-sm">
+                    <span className="bg-white/90 backdrop-blur-sm text-brand-blue text-[8px] font-bold tracking-[0.2em] uppercase px-3 py-1 rounded-sm shadow-sm">
                       {dog.status}
                     </span>
                   </div>
@@ -68,17 +68,17 @@ export default async function DogsPage() {
                 
                 <div className="space-y-2 px-1">
                   <div className="flex items-center gap-2">
-                    <div className="w-4 h-[1px] bg-[#C5A059]" />
-                    <span className="text-[#C5A059] text-[8px] tracking-[0.2em] uppercase font-bold">
+                    <div className="w-4 h-[1px] bg-brand-bronze" />
+                    <span className="text-brand-bronze text-[8px] tracking-[0.2em] uppercase font-bold">
                       {dog.breed}
                     </span>
                   </div>
-                  <h2 className="font-serif text-2xl text-[#001F3F] group-hover:text-[#C5A059] transition-colors duration-300 truncate">
+                  <h2 className="font-serif text-2xl text-brand-blue group-hover:text-brand-bronze transition-colors duration-300 truncate">
                     {dog.nickname || dog.name}
                   </h2>
                   <div className="flex items-center gap-3 text-[9px] text-[#333F48]/60 uppercase tracking-widest font-light">
                     <span>{dog.sex === "M" ? "Macho" : "Fêmea"}</span>
-                    <span className="w-1 h-1 bg-[#C5A059] rounded-full" />
+                    <span className="w-1 h-1 bg-brand-bronze rounded-full" />
                     <span className="truncate">{dog.color}</span>
                   </div>
                 </div>

@@ -79,15 +79,15 @@ export default function ApplicationForm() {
         {/* Progress Bar */}
         <div className="absolute top-0 left-0 w-full h-1 bg-zinc-800">
           <div 
-            className="h-full bg-gradient-to-r from-amber-600 to-amber-400 transition-all duration-500"
+            className="h-full bg-gradient-to-r from-brand-bronze to-brand-gold transition-all duration-500"
             style={{ width: `${(step / 3) * 100}%` }}
           />
         </div>
 
         <div className="flex items-center justify-between mb-8 text-sm font-medium">
-          <span className={step >= 1 ? "text-amber-500" : "text-zinc-600"}>1. Contato</span>
-          <span className={step >= 2 ? "text-amber-500" : "text-zinc-600"}>2. Interesse</span>
-          <span className={step >= 3 ? "text-amber-500" : "text-zinc-600"}>3. Estilo de Vida</span>
+          <span className={step >= 1 ? "text-brand-gold" : "text-zinc-600"}>1. Contato</span>
+          <span className={step >= 2 ? "text-brand-gold" : "text-zinc-600"}>2. Interesse</span>
+          <span className={step >= 3 ? "text-brand-gold" : "text-zinc-600"}>3. Estilo de Vida</span>
         </div>
 
         {step === 1 && (
@@ -100,7 +100,7 @@ export default function ApplicationForm() {
                   type="text" 
                   value={formData.name}
                   onChange={(e) => updateForm('name', e.target.value)}
-                  className="w-full bg-zinc-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors"
+                  className="w-full bg-zinc-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-bronze transition-colors"
                   placeholder="Seu nome"
                 />
               </div>
@@ -110,7 +110,7 @@ export default function ApplicationForm() {
                   type="email" 
                   value={formData.email}
                   onChange={(e) => updateForm('email', e.target.value)}
-                  className="w-full bg-zinc-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors"
+                  className="w-full bg-zinc-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-bronze transition-colors"
                   placeholder="seu@email.com"
                 />
               </div>
@@ -120,7 +120,7 @@ export default function ApplicationForm() {
                   type="tel" 
                   value={formData.phone}
                   onChange={(e) => updateForm('phone', e.target.value)}
-                  className="w-full bg-zinc-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors"
+                  className="w-full bg-zinc-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-bronze transition-colors"
                   placeholder="(00) 00000-0000"
                 />
               </div>
@@ -129,7 +129,7 @@ export default function ApplicationForm() {
               <button 
                 onClick={nextStep}
                 disabled={!formData.name || !formData.email || !formData.phone}
-                className="px-6 py-3 bg-amber-600 text-white rounded-lg font-medium hover:bg-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-6 py-3 bg-brand-bronze text-white rounded-lg font-medium hover:bg-brand-gold disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Próximo Passo
               </button>
@@ -147,7 +147,7 @@ export default function ApplicationForm() {
                   type="text" 
                   value={formData.interest}
                   onChange={(e) => updateForm('interest', e.target.value)}
-                  className="w-full bg-zinc-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors"
+                  className="w-full bg-zinc-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-bronze transition-colors"
                   placeholder="Ex: Dachshund Pelo Longo, Macho"
                 />
                 <p className="text-xs text-zinc-500 mt-2">Você pode mencionar especificamente algum filhote que viu disponível.</p>
@@ -163,7 +163,7 @@ export default function ApplicationForm() {
               <button 
                 onClick={nextStep}
                 disabled={!formData.interest}
-                className="px-6 py-3 bg-amber-600 text-white rounded-lg font-medium hover:bg-amber-500 disabled:opacity-50 transition-colors"
+                className="px-6 py-3 bg-brand-bronze text-white rounded-lg font-medium hover:bg-brand-gold disabled:opacity-50 transition-colors"
               >
                 Próximo Passo
               </button>
@@ -181,7 +181,7 @@ export default function ApplicationForm() {
                   value={formData.lifestyle}
                   onChange={(e) => updateForm('lifestyle', e.target.value)}
                   rows={3}
-                  className="w-full bg-zinc-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors resize-none"
+                  className="w-full bg-zinc-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-bronze transition-colors resize-none"
                   placeholder="Moro em apartamento onde tem gramado..."
                 />
               </div>
@@ -191,7 +191,7 @@ export default function ApplicationForm() {
                   value={formData.experience}
                   onChange={(e) => updateForm('experience', e.target.value)}
                   rows={3}
-                  className="w-full bg-zinc-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors resize-none"
+                  className="w-full bg-zinc-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-bronze transition-colors resize-none"
                   placeholder="Sim, já tive dois cães da mesma raça..."
                 />
               </div>
@@ -207,7 +207,7 @@ export default function ApplicationForm() {
               <button 
                 onClick={handleSubmit}
                 disabled={!formData.lifestyle || isSubmitting}
-                className="px-8 py-3 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-lg font-bold hover:shadow-[0_0_15px_rgba(217,119,6,0.3)] transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-8 py-3 bg-gradient-to-r from-brand-bronze to-brand-gold text-white rounded-lg font-bold hover:shadow-[0_0_15px_rgba(158,122,44,0.3)] transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? "Enviando..." : "Enviar Aplicação"}
               </button>

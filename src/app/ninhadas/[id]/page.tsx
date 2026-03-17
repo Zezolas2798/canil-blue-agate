@@ -26,25 +26,25 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
 
   return (
     <div className="bg-white min-h-screen">
-      {/* Page Header: Navy */}
-      <section className="bg-[#001F3F] py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(197,160,89,0.08)_0%,transparent_70%)]" />
+      {/* Page Header: Brand Blue */}
+      <section className="bg-brand-blue py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(158,122,44,0.08)_0%,transparent_70%)]" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <Link href="/ninhadas" className="text-white/40 hover:text-[#C5A059] transition-colors text-xs tracking-widest uppercase flex items-center gap-3 mb-12">
+          <Link href="/ninhadas" className="text-white/40 hover:text-brand-bronze transition-colors text-xs tracking-widest uppercase flex items-center gap-3 mb-12">
             <span className="w-8 h-[1px] bg-white/20" />
             Voltar para Ninhadas
           </Link>
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="space-y-4">
-              <span className="text-[#C5A059] text-[10px] tracking-[0.4em] uppercase font-bold">Acompanhamento Exclusivo</span>
+              <span className="text-brand-bronze text-[10px] tracking-[0.4em] uppercase font-bold">Acompanhamento Exclusivo</span>
               <h1 className="font-serif text-5xl md:text-7xl text-white">
                 {litter.title || "Ninhada Selecionada"}
               </h1>
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="px-6 py-2 border border-[#C5A059]/30 rounded-sm text-[#C5A059] text-[10px] font-bold tracking-[0.2em] uppercase">
+              <div className="px-6 py-2 border border-brand-bronze/30 rounded-sm text-brand-bronze text-[10px] font-bold tracking-[0.2em] uppercase">
                 {litter.status}
               </div>
             </div>
@@ -76,20 +76,20 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
           {/* Technical Section */}
           <div className="flex flex-col justify-center gap-12 text-[#333F48]">
             <div className="space-y-6">
-              <h3 className="font-serif text-3xl text-[#001F3F]">Especificações da Ninhada</h3>
-              <div className="w-16 h-[1px] bg-[#C5A059]" />
+              <h3 className="font-serif text-3xl text-brand-blue">Especificações da Ninhada</h3>
+              <div className="w-16 h-[1px] bg-brand-bronze" />
             </div>
 
             <div className="grid grid-cols-2 gap-y-10 items-center border-b border-zinc-100 pb-12">
               {litter.birthDate && (
                 <div className="flex flex-col gap-1">
-                  <p className="text-[9px] uppercase tracking-[0.3em] text-[#C5A059] font-bold">Nascimento</p>
-                  <p className="text-[#001F3F] text-lg font-light tracking-wide">{new Date(litter.birthDate).toLocaleDateString("pt-BR")}</p>
+                  <p className="text-[9px] uppercase tracking-[0.3em] text-brand-bronze font-bold">Nascimento</p>
+                  <p className="text-brand-blue text-lg font-light tracking-wide">{new Date(litter.birthDate).toLocaleDateString("pt-BR")}</p>
                 </div>
               )}
               <div className="flex flex-col gap-1">
-                <p className="text-[9px] uppercase tracking-[0.3em] text-[#C5A059] font-bold">Investimento</p>
-                <p className="text-[#001F3F] text-lg font-light tracking-wide">{litter.price ? `R$ ${litter.price.toLocaleString("pt-BR")}` : "Consultar Curadoria"}</p>
+                <p className="text-[9px] uppercase tracking-[0.3em] text-brand-bronze font-bold">Investimento</p>
+                <p className="text-brand-blue text-lg font-light tracking-wide">{litter.price ? `R$ ${litter.price.toLocaleString("pt-BR")}` : "Consultar Curadoria"}</p>
               </div>
             </div>
 
@@ -97,21 +97,21 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
               <p className="text-[9px] uppercase tracking-[0.3em] text-[#333F48]/40 font-bold mb-6">Ascendência Genética</p>
               <div className="grid grid-cols-2 gap-10">
                 <Link href={`/caes/${litter.sireId}`} className="group flex items-center gap-6">
-                  <div className="w-16 h-16 rounded-full overflow-hidden border border-zinc-100 group-hover:border-[#C5A059] transition-colors relative">
+                  <div className="w-16 h-16 rounded-full overflow-hidden border border-zinc-100 group-hover:border-brand-bronze transition-colors relative">
                     <Image src={litter.sire?.profilePhoto || "/placeholder-dog.png"} fill className="object-cover" alt="Sire" />
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[8px] text-zinc-400 uppercase tracking-widest">Pai (Sire)</span>
-                    <span className="text-[#001F3F] font-serif text-lg group-hover:text-[#C5A059] transition-colors">{litter.sire?.nickname || litter.sire?.name}</span>
+                    <span className="text-brand-blue font-serif text-lg group-hover:text-brand-bronze transition-colors">{litter.sire?.nickname || litter.sire?.name}</span>
                   </div>
                 </Link>
                 <Link href={`/caes/${litter.damId}`} className="group flex items-center gap-6">
-                  <div className="w-16 h-16 rounded-full overflow-hidden border border-zinc-100 group-hover:border-[#C5A059] transition-colors relative">
+                  <div className="w-16 h-16 rounded-full overflow-hidden border border-zinc-100 group-hover:border-brand-bronze transition-colors relative">
                     <Image src={litter.dam?.profilePhoto || "/placeholder-dog.png"} fill className="object-cover" alt="Dam" />
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[8px] text-zinc-400 uppercase tracking-widest">Mãe (Dam)</span>
-                    <span className="text-[#001F3F] font-serif text-lg group-hover:text-[#C5A059] transition-colors">{litter.dam?.nickname || litter.dam?.name}</span>
+                    <span className="text-brand-blue font-serif text-lg group-hover:text-brand-bronze transition-colors">{litter.dam?.nickname || litter.dam?.name}</span>
                   </div>
                 </Link>
               </div>
@@ -122,8 +122,8 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
         {/* Puppies Section */}
         <section className="mb-32">
           <div className="flex flex-col items-center text-center gap-6 mb-16">
-            <span className="text-[#C5A059] text-[10px] tracking-[0.4em] uppercase font-bold">Destaques da Ninhada</span>
-            <h2 className="font-serif text-4xl md:text-5xl text-[#001F3F]">Nossos Filhotes</h2>
+            <span className="text-brand-bronze text-[10px] tracking-[0.4em] uppercase font-bold">Destaques da Ninhada</span>
+            <h2 className="font-serif text-4xl md:text-5xl text-brand-blue">Nossos Filhotes</h2>
             <div className="w-12 h-[1px] bg-zinc-100" />
           </div>
 
@@ -137,7 +137,7 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
                     <div className="absolute inset-0 flex items-center justify-center text-zinc-100 font-serif text-4xl opacity-10">BA</div>
                   )}
                   <div className="absolute top-4 left-4 z-20">
-                    <span className="bg-white/90 backdrop-blur-sm text-[#001F3F] text-[8px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded-sm shadow-sm">
+                    <span className="bg-white/90 backdrop-blur-sm text-brand-blue text-[8px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded-sm shadow-sm">
                       {puppy.sex === "M" ? "Macho" : "Fêmea"}
                     </span>
                   </div>
@@ -145,13 +145,13 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-4 h-[1px] bg-[#C5A059]" />
+                    <div className="w-4 h-[1px] bg-brand-bronze" />
                     <span className={`text-[9px] font-bold tracking-[0.2em] uppercase ${puppy.status === 'DISPONIVEL' ? 'text-green-600' : 'text-zinc-400'
                       }`}>
                       {puppy.status}
                     </span>
                   </div>
-                  <h3 className="font-serif text-2xl text-[#001F3F] group-hover:text-[#C5A059] transition-colors">
+                  <h3 className="font-serif text-2xl text-brand-blue group-hover:text-brand-bronze transition-colors">
                     {puppy.name || `Filhote #${idx + 1}`}
                   </h3>
                   <p className="text-[#333F48]/60 text-xs tracking-widest font-light">{puppy.color}</p>
@@ -171,7 +171,7 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
 
         {/* Footer CTA */}
         <div className="py-32 border-t border-zinc-100 text-center">
-          <h3 className="font-serif text-4xl text-[#001F3F] mb-6 tracking-tight">O Fim da Busca, O Início da Amizade.</h3>
+          <h3 className="font-serif text-4xl text-brand-blue mb-6 tracking-tight">O Fim da Busca, O Início da Amizade.</h3>
           <p className="text-zinc-400 mb-10 max-w-xl mx-auto font-light tracking-wide leading-relaxed italic">"Nossos filhotes não são apenas cães, mas a materialização de um sonho genético."</p>
           <Link href="/aplicacao" className="btn-gold px-12 py-4 inline-block tracking-[0.3em]">
             Iniciar Processo de Reserva

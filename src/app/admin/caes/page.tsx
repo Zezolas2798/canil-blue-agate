@@ -17,7 +17,7 @@ export default async function AdminDogs() {
         </div>
         <Link
           href="/admin/caes/novo"
-          className="px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors shadow-lg shadow-amber-500/20 flex items-center gap-2"
+          className="px-6 py-3 bg-brand-bronze text-white rounded-lg font-semibold hover:bg-brand-gold transition-colors shadow-lg shadow-brand-bronze/20 flex items-center gap-2"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -53,7 +53,7 @@ export default async function AdminDogs() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 4v16m8-8H4" />
           </svg>
           <p className="text-zinc-400 text-sm mb-4">Nenhum cão cadastrado ainda</p>
-          <Link href="/admin/caes/novo" className="text-amber-500 hover:text-amber-400 text-sm font-medium">
+          <Link href="/admin/caes/novo" className="text-brand-gold hover:text-brand-gold/80 text-sm font-medium">
             Cadastrar o primeiro cão →
           </Link>
         </div>
@@ -63,7 +63,7 @@ export default async function AdminDogs() {
             <Link
               key={dog.id}
               href={`/admin/caes/${dog.id}`}
-              className="group bg-zinc-900 border border-white/5 rounded-xl overflow-hidden hover:border-amber-500/30 transition-all duration-300"
+              className="group bg-zinc-900 border border-white/5 rounded-xl overflow-hidden hover:border-brand-bronze/30 transition-all duration-300"
             >
               {/* Profile Photo */}
               <div className="aspect-square bg-zinc-800 relative overflow-hidden">
@@ -89,7 +89,7 @@ export default async function AdminDogs() {
                     dog.status === "ATIVO" ? "bg-green-500 text-white" :
                     dog.status === "APOSENTADO" ? "bg-zinc-600 text-zinc-200" :
                     dog.status === "OBITO" ? "bg-red-600 text-white" :
-                    "bg-amber-500 text-black"
+                    "bg-brand-bronze text-white"
                   }`}>
                     {dog.status}
                   </span>
@@ -104,7 +104,7 @@ export default async function AdminDogs() {
                 </div>
                 {/* Edit overlay */}
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="px-3 py-1.5 bg-amber-600 text-white text-xs font-medium rounded-lg shadow-lg">
+                  <span className="px-3 py-1.5 bg-brand-bronze text-white text-xs font-medium rounded-lg shadow-lg">
                     Editar Perfil
                   </span>
                 </div>
@@ -112,7 +112,7 @@ export default async function AdminDogs() {
 
               {/* Info */}
               <div className="p-3">
-                <p className="font-semibold text-white group-hover:text-amber-400 transition-colors truncate text-sm">
+                <p className="font-semibold text-white group-hover:text-brand-gold transition-colors truncate text-sm">
                   {dog.nickname || dog.name}
                 </p>
                 {dog.registrationName && (
