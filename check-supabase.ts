@@ -12,7 +12,7 @@ async function main() {
         if (dogs.length > 0) {
             console.log('Sample Dog:', JSON.stringify(dogs[0], null, 2));
         }
-    } catch (e) {
+    } catch (e: any) {
         console.log(`- Error fetching Dogs: ${e.message}`);
     } finally {
         await prisma.$disconnect();
