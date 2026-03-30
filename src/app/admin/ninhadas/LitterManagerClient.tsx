@@ -63,20 +63,48 @@ export default function LitterManagerClient({
   }
 
   function addPuppy() {
-    setPuppies([...puppies, { id: `new-${Date.now()}`, name: "", sex: "M", color: "", birthWeight: "", status: "DISPONIVEL", photo: "" }]);
+    setPuppies([...puppies, { id: `new-${Date.now()}`, name: "", sex: "M", color: "", birthWeight: "", status: "DISPONIVEL", photo: "", media: "[]" }]);
   }
 
-  async function handlePuppyPhotoUpload(index: number, files: FileList | null) {
+  async function handlePuppyMediaUpload(index: number, files: FileList | null) {
     if (!files || files.length === 0) return;
     setUploading(true);
-    const formData = new FormData();
-    formData.append("file", files[0]);
-    try {
-      const res = await fetch("/api/upload", { method: "POST", body: formData });
-      const data = await res.json();
-      if (data.url) updatePuppy(index, "photo", data.url);
-    } catch (err) { console.error(err); }
+    
+    const currentMedia = (() => {
+      const m = puppies[index].media;
+      if (!m) return [];
+      try { return JSON.parse(m); } catch { return []; }
+    })();
+
+    for (let i = 0; i < files.length; i++) {
+      const formData = new FormData();
+      formData.append("file", files[i]);
+      try {
+        const res = await fetch("/api/upload", { method: "POST", body: formData });
+        const data = await res.json();
+        if (data.url) currentMedia.push(data.url);
+      } catch (err) { console.error(err); }
+    }
+    
+    updatePuppy(index, "media", JSON.stringify(currentMedia));
+    if (currentMedia.length > 0 && !puppies[index].photo) {
+      updatePuppy(index, "photo", currentMedia[0]);
+    }
     setUploading(false);
+  }
+
+  function removePuppyPhoto(puppyIndex: number, photoIndex: number) {
+    const m = puppies[puppyIndex].media;
+    if (!m) return;
+    try {
+      const mediaArr = JSON.parse(m);
+      const newMediaArr = mediaArr.filter((_: any, i: number) => i !== photoIndex);
+      updatePuppy(puppyIndex, "media", JSON.stringify(newMediaArr));
+      // Update primary photo if it was removed
+      if (puppies[puppyIndex].photo === mediaArr[photoIndex]) {
+        updatePuppy(puppyIndex, "photo", newMediaArr[0] || "");
+      }
+    } catch (e) { console.error(e); }
   }
 
   function removePuppy(index: number) {
@@ -226,81 +254,102 @@ export default function LitterManagerClient({
                 </div>
               ) : (
                 puppies.map((puppy, index) => (
-                  <div key={puppy.id} className="bg-zinc-950 border border-white/5 rounded-xl p-4 grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-                    <div className="md:col-span-1">
-                      <div className="w-12 h-12 rounded-lg bg-zinc-900 border border-white/10 flex items-center justify-center text-xs text-zinc-600 font-bold overflow-hidden relative group">
-                        {puppy.photo ? (
-                          <img src={puppy.photo} className="w-full h-full object-cover" alt="Puppy" />
-                        ) : (
-                          <span>#{index + 1}</span>
-                        )}
+                  <div key={puppy.id} className="bg-zinc-950 border border-white/5 rounded-xl p-6 flex flex-col gap-6">
+                    {/* Puppy Photos Gallery */}
+                    <div className="flex flex-wrap gap-3 items-center border-b border-white/5 pb-4">
+                      {(() => {
+                         const m = puppy.media;
+                         let photosArr = [];
+                         try { 
+                           photosArr = m ? JSON.parse(m) : (puppy.photo ? [puppy.photo] : []); 
+                         } catch { 
+                           photosArr = puppy.photo ? [puppy.photo] : []; 
+                         }
+                         return photosArr.map((url: string, pIdx: number) => (
+                           <div key={pIdx} className="w-20 h-20 rounded-lg bg-zinc-900 border border-white/10 flex items-center justify-center overflow-hidden relative group">
+                             <img src={url} className="w-full h-full object-cover" alt="Puppy" />
+                             <button 
+                               type="button"
+                               onClick={() => removePuppyPhoto(index, pIdx)}
+                               className="absolute top-1 right-1 w-5 h-5 bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+                             >
+                               ✕
+                             </button>
+                           </div>
+                         ));
+                      })()}
+
+                      {/* Upload Button */}
+                      <div className="w-20 h-20 rounded-lg bg-zinc-900 border border-dashed border-white/20 flex flex-col items-center justify-center text-zinc-500 hover:border-brand-bronze hover:text-brand-bronze cursor-pointer transition-colors relative">
+                        <span className="text-2xl">+</span>
+                        <span className="text-[8px] uppercase font-bold tracking-tighter">Fotos</span>
                         <input 
                           type="file" 
+                          multiple
                           id={`puppy-photo-${index}`}
-                          className="hidden" 
-                          onChange={(e) => handlePuppyPhotoUpload(index, e.target.files)}
+                          className="absolute inset-0 opacity-0 cursor-pointer" 
+                          onChange={(e) => handlePuppyMediaUpload(index, e.target.files)}
                         />
-                        <button 
-                          type="button"
-                          onClick={() => document.getElementById(`puppy-photo-${index}`)?.click()}
-                          className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
-                        >
-                          <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                          </svg>
-                        </button>
+                      </div>
+
+                      <div className="ml-2">
+                         <p className="text-white text-xs font-medium">Galeria do Filhote</p>
+                         <p className="text-[10px] text-zinc-500 italic">Múltiplas fotos permitidas.</p>
                       </div>
                     </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-[10px] text-zinc-500 uppercase mb-1">Sexo</label>
-                      <select 
-                        value={puppy.sex || "M"} 
-                        onChange={(e) => updatePuppy(index, "sex", e.target.value)}
-                        className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none border-brand-bronze/30"
-                      >
-                        <option value="M">♂ Macho</option>
-                        <option value="F">♀ Fêmea</option>
-                      </select>
-                    </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-[10px] text-zinc-500 uppercase mb-1">Cor / Marcação</label>
-                      <input 
-                        value={puppy.color || ""} 
-                        onChange={(e) => updatePuppy(index, "color", e.target.value)}
-                        placeholder="Ex: Arlequim"
-                        className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none"
-                      />
-                    </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-[10px] text-zinc-500 uppercase mb-1">Peso (g)</label>
-                      <input 
-                        type="number"
-                        value={puppy.birthWeight || ""} 
-                        onChange={(e) => updatePuppy(index, "birthWeight", e.target.value)}
-                        placeholder="Ex: 180"
-                        className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none"
-                      />
-                    </div>
-                    <div className="md:col-span-3">
-                      <label className="block text-[10px] text-zinc-500 uppercase mb-1">Status</label>
-                      <select 
-                        value={puppy.status || "DISPONIVEL"} 
-                        onChange={(e) => updatePuppy(index, "status", e.target.value)}
-                        className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none"
-                      >
-                        <option value="DISPONIVEL">Disponível</option>
-                        <option value="RESERVADO">Reservado</option>
-                        <option value="VENDIDO">Vendido</option>
-                      </select>
-                    </div>
-                    <div className="md:col-span-2 flex justify-end">
-                      <button 
-                        type="button" 
-                        onClick={() => removePuppy(index)}
-                        className="w-8 h-8 rounded-full bg-red-900/20 text-red-500 flex items-center justify-center hover:bg-red-600 hover:text-white transition-colors"
-                      >
-                        ✕
-                      </button>
+
+                    {/* Puppy Fields Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                      <div>
+                        <label className="block text-[10px] text-zinc-500 uppercase mb-1">Nome / Identificação</label>
+                        <input 
+                          value={puppy.name || ""} 
+                          onChange={(e) => updatePuppy(index, "name", e.target.value)}
+                          placeholder="Ex: Filhote Blue"
+                          className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-brand-bronze/50"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] text-zinc-500 uppercase mb-1">Sexo</label>
+                        <select 
+                          value={puppy.sex || "M"} 
+                          onChange={(e) => updatePuppy(index, "sex", e.target.value)}
+                          className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none border-brand-bronze/30"
+                        >
+                          <option value="M">♂ Macho</option>
+                          <option value="F">♀ Fêmea</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-[10px] text-zinc-500 uppercase mb-1">Cor / Marcação</label>
+                        <input 
+                          value={puppy.color || ""} 
+                          onChange={(e) => updatePuppy(index, "color", e.target.value)}
+                          placeholder="Ex: Arlequim"
+                          className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-brand-bronze/50"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] text-zinc-500 uppercase mb-1">Status</label>
+                        <select 
+                          value={puppy.status || "DISPONIVEL"} 
+                          onChange={(e) => updatePuppy(index, "status", e.target.value)}
+                          className="w-full bg-zinc-900 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-brand-bronze/50"
+                        >
+                          <option value="DISPONIVEL">Disponível</option>
+                          <option value="RESERVADO">Reservado</option>
+                          <option value="VENDIDO">Vendido</option>
+                        </select>
+                      </div>
+                      <div className="flex items-end">
+                        <button 
+                          type="button" 
+                          onClick={() => removePuppy(index)}
+                          className="w-full py-2 rounded-lg bg-red-900/10 text-red-500 border border-red-900/20 text-xs font-bold hover:bg-red-600 hover:text-white transition-all flex items-center justify-center gap-2"
+                        >
+                          ✕ Remover Filhote
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))

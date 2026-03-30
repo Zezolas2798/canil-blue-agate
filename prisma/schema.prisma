@@ -83,6 +83,7 @@ model Puppy {
   price       Float?
   status      String    @default("DISPONIVEL")
   photo       String?
+  media       String?
   buyerId     String?
   saleDate    DateTime?
   litterId    String

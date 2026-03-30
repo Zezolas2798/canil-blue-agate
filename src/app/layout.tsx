@@ -33,15 +33,19 @@ export default function RootLayout({
           {/* Header: Brand Royal Blue */}
           <header className="fixed top-0 w-full z-[100] border-b border-white/10 bg-brand-blue">
             <div className="max-w-7xl mx-auto flex items-center justify-between h-24 px-6 relative">
-              <div className="flex items-center gap-4">
+              {/* Left: Brand Name */}
+              <div className="flex items-center">
                 <div className="font-serif text-2xl font-bold tracking-[0.1em] text-brand-bronze">
                   BLUE AGATE
                 </div>
-                {/* Gold Dog Heritage Silhouette */}
-                <div className="flex items-center ml-2">
-                  <div className="logo-dog-img" aria-label="Canil Gold Logo" />
-                </div>
               </div>
+
+              {/* Center: Gold Dog Heritage Silhouette (Absolutely Centered) */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[45%] pointer-events-none">
+                <div className="logo-dog-img pointer-events-auto" aria-label="Canil Gold Logo" />
+              </div>
+
+              {/* Right: Menu */}
               <Navbar />
             </div>
           </header>

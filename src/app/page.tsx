@@ -54,12 +54,9 @@ export default function Home() {
             Dachshunds criados sob a ótica da arte e da ciência genética.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-6 mt-4">
-            <Link href="/caes" className="px-12 py-4 btn-gold flex items-center justify-center min-w-[220px]">
-              Nossa Linhagem
-            </Link>
-            <Link href="/aplicacao" className="px-12 py-4 btn-outline-gold flex items-center justify-center min-w-[220px]">
-              Iniciar Aplicação
+          <div className="flex justify-center mt-4">
+            <Link href="/caes" className="px-14 py-5 btn-gold flex items-center justify-center min-w-[280px] shadow-2xl shadow-black/20 hover:scale-105 transition-transform">
+              Conheça nossos Cães
             </Link>
           </div>
         </div>

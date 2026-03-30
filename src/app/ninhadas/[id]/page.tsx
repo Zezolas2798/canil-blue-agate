@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 export const dynamic = "force-dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import PedigreeTree from "@/components/PedigreeTree";
+import LitterCarousel from "@/components/LitterCarousel";
 
 export default async function LitterDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -11,8 +13,18 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
   const litter: any = await prisma.litter.findUnique({
     where: { id },
     include: {
-      sire: true,
-      dam: true,
+      sire: {
+        include: {
+          sire: { include: { sire: true, dam: true } },
+          dam: { include: { sire: true, dam: true } }
+        }
+      },
+      dam: {
+        include: {
+          sire: { include: { sire: true, dam: true } },
+          dam: { include: { sire: true, dam: true } }
+        }
+      },
       puppies: true,
     }
   });
@@ -94,14 +106,13 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
             </div>
 
             <div className="space-y-6 pt-4">
-              <p className="text-[9px] uppercase tracking-[0.3em] text-[#333F48]/40 font-bold mb-6">Ascendência Genética</p>
               <div className="grid grid-cols-2 gap-10">
                 <Link href={`/caes/${litter.sireId}`} className="group flex items-center gap-6">
                   <div className="w-16 h-16 rounded-full overflow-hidden border border-zinc-100 group-hover:border-brand-bronze transition-colors relative">
                     <Image src={litter.sire?.profilePhoto || "/placeholder-dog.png"} fill className="object-cover" alt="Sire" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[8px] text-zinc-400 uppercase tracking-widest">Pai (Sire)</span>
+                    <span className="text-[8px] text-zinc-400 uppercase tracking-widest">Pai</span>
                     <span className="text-brand-blue font-serif text-lg group-hover:text-brand-bronze transition-colors">{litter.sire?.nickname || litter.sire?.name}</span>
                   </div>
                 </Link>
@@ -110,7 +121,7 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
                     <Image src={litter.dam?.profilePhoto || "/placeholder-dog.png"} fill className="object-cover" alt="Dam" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[8px] text-zinc-400 uppercase tracking-widest">Mãe (Dam)</span>
+                    <span className="text-[8px] text-zinc-400 uppercase tracking-widest">Mãe</span>
                     <span className="text-brand-blue font-serif text-lg group-hover:text-brand-bronze transition-colors">{litter.dam?.nickname || litter.dam?.name}</span>
                   </div>
                 </Link>
@@ -131,11 +142,7 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
             {litter.puppies.map((puppy: any, idx: number) => (
               <div key={puppy.id} className="flex flex-col group">
                 <div className="relative aspect-square overflow-hidden bg-zinc-50 rounded-sm mb-6 transition-all duration-500 group-hover:shadow-2xl border border-zinc-50">
-                  {puppy.photo ? (
-                    <Image src={puppy.photo} fill className="object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" alt={puppy.name || "Filhote"} />
-                  ) : (
-                    <div className="absolute inset-0 flex items-center justify-center text-zinc-100 font-serif text-4xl opacity-10">BA</div>
-                  )}
+                  <LitterCarousel media={puppy.media || puppy.photo} title={puppy.name || "Filhote"} />
                   <div className="absolute top-4 left-4 z-20">
                     <span className="bg-white/90 backdrop-blur-sm text-brand-blue text-[8px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded-sm shadow-sm">
                       {puppy.sex === "M" ? "Macho" : "Fêmea"}
@@ -166,6 +173,24 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Pedigree Section */}
+        <section className="mb-32">
+          <div className="flex flex-col items-center text-center gap-6 mb-16">
+            <span className="text-brand-bronze text-[10px] tracking-[0.4em] uppercase font-bold">Linhagem de Elite</span>
+            <h2 className="font-serif text-4xl md:text-5xl text-brand-blue">Árvore Genealógica</h2>
+            <div className="w-12 h-[1px] bg-zinc-100" />
+          </div>
+          
+          <div className="bg-zinc-50/50 rounded-sm p-4 md:p-10 border border-zinc-100">
+            <PedigreeTree dog={{
+              id: litter.id,
+              name: litter.title || "Ninhada",
+              sire: litter.sire,
+              dam: litter.dam
+            } as any} />
           </div>
         </section>
 

@@ -4,7 +4,7 @@
   --font-body: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
   
-  --color-brand-blue: #0647C1;
+  --color-brand-blue: #001F3F;
   --color-brand-bronze: #9E7A2C;
   --color-brand-gold: #DE9A07;
   --color-slate-charcoal: #333F48;
@@ -156,7 +156,7 @@ h1, h2, h3, h4, .font-serif {
 }
 
 .drawer-solid-fix {
-  background-color: #0647C1 !important;
+  background-color: #001F3F !important;
   opacity: 1 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;

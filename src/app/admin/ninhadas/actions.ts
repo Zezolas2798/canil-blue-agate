@@ -65,6 +65,7 @@ export async function updateLitter(formData: FormData) {
             price: p.price ? parseFloat(p.price) : (data.price || null),
             status: p.status || "DISPONIVEL",
             photo: p.photo || null,
+            media: p.media || (p.photo ? JSON.stringify([p.photo]) : "[]"),
           }
         });
         createdPuppies.push(cp);

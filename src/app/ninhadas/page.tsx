@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
+import LitterCarousel from "@/components/LitterCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -27,7 +28,7 @@ export default async function LittersPage() {
   return (
     <div className="bg-white min-h-screen">
       {/* Page Header: Dynamic Video Background */}
-      <section className="relative w-full h-[60vh] flex items-center justify-center overflow-hidden bg-brand-blue">
+      <section className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden bg-brand-blue">
         {/* Video Element */}
         <video 
           autoPlay 
@@ -54,29 +55,27 @@ export default async function LittersPage() {
              "Onde cada novo fôlego é o início de um legado de beleza e temperamento."
           </p>
         </div>
+
+        {/* Waves Transition to Content */}
+        <div className="shape-divider bottom">
+          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0V120H1200V0C1100,60,950,80,800,80C600,80,450,40,300,40C150,40,50,20,0,0Z" className="shape-fill"></path>
+          </svg>
+        </div>
       </section>
 
       {/* Grid Section */}
-      <section className="py-24 max-w-7xl mx-auto px-6">
+      <section className="py-16 max-w-7xl mx-auto px-6">
         {litters.length === 0 ? (
           <div className="text-center py-40 border border-zinc-100 rounded-sm">
             <p className="text-zinc-400 font-light italic">Planejando futuros acasalamentos de elite. Fique atento.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {litters.map((litter) => (
-              <div key={litter.id} className="group flex flex-col md:flex-row gap-8 items-stretch border-b border-zinc-100 pb-16">
-                <div className="relative w-full md:w-1/2 aspect-[4/5] bg-zinc-50 overflow-hidden rounded-sm group-hover:shadow-xl transition-shadow duration-500">
-                  {litter.media ? (
-                    <Image 
-                      src={(() => { try { return JSON.parse(litter.media!)[0]; } catch { return litter.media!.split(',')[0]; } })()} 
-                      alt={litter.title || "Ninhada"}
-                      fill
-                      className="object-cover grayscale-[0.3] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1.5s]"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 flex items-center justify-center text-zinc-100 font-serif text-4xl">BA</div>
-                  )}
+              <div key={litter.id} className="group flex flex-col md:flex-row gap-8 items-stretch border-b border-zinc-100 pb-10">
+                <div className="relative w-full md:w-1/2 aspect-[3/2] bg-zinc-50 overflow-hidden rounded-sm group-hover:shadow-xl transition-shadow duration-500">
+                  <LitterCarousel media={litter.media} title={litter.title || "Ninhada"} />
                   
                   {/* Status Overlay */}
                   <div className="absolute top-6 left-6">
@@ -98,27 +97,43 @@ export default async function LittersPage() {
                     </div>
 
                     <div className="space-y-4">
-                      <p className="text-[#333F48]/60 text-xs uppercase tracking-widest font-semibold italic">Ascendência Direta</p>
-                      <div className="flex gap-8 items-center">
-                        <div className="flex flex-col">
-                          <span className="text-[9px] text-zinc-400 uppercase tracking-widest mb-1">Pai (Sire)</span>
-                          <span className="text-brand-blue text-sm font-medium">{litter.sire?.nickname || "Pai Selecionado"}</span>
+                      <div className="flex gap-10 items-center pt-2">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full overflow-hidden border border-zinc-100 relative grayscale-[0.5]">
+                            <Image src={litter.sire?.profilePhoto || "/placeholder-dog.png"} fill className="object-cover" alt="Sire" />
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-[9px] text-zinc-400 uppercase tracking-widest mb-1">Pai</span>
+                            <span className="text-brand-blue text-sm font-medium">{litter.sire?.nickname || litter.sire?.name || "Pai Selecionado"}</span>
+                          </div>
                         </div>
                         <div className="w-[1px] h-8 bg-zinc-100" />
-                        <div className="flex flex-col">
-                          <span className="text-[9px] text-zinc-400 uppercase tracking-widest mb-1">Mãe (Dam)</span>
-                          <span className="text-brand-blue text-sm font-medium">{litter.dam?.nickname || "Mãe Selecionada"}</span>
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full overflow-hidden border border-zinc-100 relative grayscale-[0.5]">
+                            <Image src={litter.dam?.profilePhoto || "/placeholder-dog.png"} fill className="object-cover" alt="Dam" />
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-[9px] text-zinc-400 uppercase tracking-widest mb-1">Mãe</span>
+                            <span className="text-brand-blue text-sm font-medium">{litter.dam?.nickname || litter.dam?.name || "Mãe Selecionada"}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
 
                     <div className="pt-4 flex flex-wrap gap-2">
                        {litter.puppies.length > 0 ? (
-                         litter.puppies.map((p: any, idx: number) => (
-                           <span key={idx} className="px-3 py-1 bg-zinc-50 text-zinc-400 text-[9px] font-bold uppercase tracking-wider rounded-sm border border-zinc-100">
-                             {p.sex === 'M' ? 'Macho' : 'Fêmea'}
-                           </span>
-                         ))
+                         (() => {
+                            const counts = litter.puppies.reduce((acc: any, p: any) => {
+                              const sex = p.sex === 'M' ? 'Macho' : 'Fêmea';
+                              acc[sex] = (acc[sex] || 0) + 1;
+                              return acc;
+                            }, {});
+                            return Object.entries(counts).map(([sex, count]) => (
+                               <span key={sex} className="px-4 py-1.5 bg-brand-bronze/5 text-brand-bronze text-[9px] font-bold uppercase tracking-wider rounded-sm border border-brand-bronze/10">
+                                 {sex}: {count as number}
+                               </span>
+                            ));
+                         })()
                        ) : (
                          <span className="text-zinc-400 text-[10px] italic">Aguardando nascimento...</span>
                        )}
