@@ -3,7 +3,7 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
+import { requireAdminAuth } from "@/lib/auth-check";
 function extractDogData(formData: FormData) {
   const sireId = formData.get("sireId") as string;
   const damId = formData.get("damId") as string;
@@ -47,6 +47,8 @@ function extractDogData(formData: FormData) {
 }
 
 export async function addDog(formData: FormData) {
+  await requireAdminAuth();
+  
   const data: any = extractDogData(formData);
   // On create, we use 'connect' only, not 'disconnect'
   if (data.sire?.disconnect) delete data.sire;
@@ -59,6 +61,8 @@ export async function addDog(formData: FormData) {
 }
 
 export async function updateDog(formData: FormData) {
+  await requireAdminAuth();
+  
   const id = formData.get("dogId") as string;
   await prisma.dog.update({ where: { id }, data: extractDogData(formData) });
   revalidatePath("/admin/caes");

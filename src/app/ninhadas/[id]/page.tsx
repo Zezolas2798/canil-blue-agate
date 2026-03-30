@@ -165,8 +165,8 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
 
                   {puppy.status === 'DISPONIVEL' && (
                     <div className="pt-4">
-                      <Link href="/aplicacao" className="btn-outline-gold px-8 py-2 block text-center text-[10px]">
-                        Quero Reservar
+                      <Link href={`/aplicacao?puppyId=${puppy.id}&litterId=${litter.id}`} className="btn-outline-gold px-8 py-2 block text-center text-[10px]">
+                        Tenho Interesse
                       </Link>
                     </div>
                   )}
@@ -198,8 +198,8 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
         <div className="py-32 border-t border-zinc-100 text-center">
           <h3 className="font-serif text-4xl text-brand-blue mb-6 tracking-tight">O Fim da Busca, O Início da Amizade.</h3>
           <p className="text-zinc-400 mb-10 max-w-xl mx-auto font-light tracking-wide leading-relaxed italic">"Nossos filhotes não são apenas cães, mas a materialização de um sonho genético."</p>
-          <Link href="/aplicacao" className="btn-gold px-12 py-4 inline-block tracking-[0.3em]">
-            Iniciar Processo de Reserva
+          <Link href={`/aplicacao?litterId=${litter.id}`} className="btn-gold px-12 py-4 inline-block tracking-[0.3em]">
+            Tenho Interesse na Linhagem
           </Link>
         </div>
       </div>

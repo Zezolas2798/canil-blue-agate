@@ -77,8 +77,8 @@ export default function PedigreeTree({ dog }: PedigreeTreeProps) {
         
         {/* Gen 1: Parents */}
         <div className="flex flex-col gap-10 justify-center">
-          <RenderNode node={dog.sire} label="Pai (Sire)" />
-          <RenderNode node={dog.dam} label="Mãe (Dam)" />
+          <RenderNode node={dog.sire} label="Pai" />
+          <RenderNode node={dog.dam} label="Mãe" />
         </div>
 
         {/* Connectors 1-2 */}

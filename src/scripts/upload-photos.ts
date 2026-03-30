@@ -6,11 +6,16 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const supabaseFullUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://wwjyspwfentvrqmnilcg.supabase.co";
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseFullUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseFullUrl) {
+  console.error('❌ Erro: NEXT_PUBLIC_SUPABASE_URL não encontrada no .env');
+  process.exit(1);
+}
 
 if (!supabaseKey) {
-  console.error('❌ Erro: NEXT_PUBLIC_SUPABASE_ANON_KEY não encontrada no .env');
+  console.error('❌ Erro: SUPABASE_SERVICE_ROLE_KEY não encontrada no .env');
   process.exit(1);
 }
 

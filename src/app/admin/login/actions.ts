@@ -1,27 +1,32 @@
 "use server";
 
-import { cookies } from "next/headers";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
 export async function login(formData: FormData) {
-  const password = formData.get("password");
-  
-  // In a real app, from process.env.ADMIN_PASSWORD. 
-  // Using a hardcoded fallback for development presentation.
-  const adminPassword = process.env.ADMIN_PASSWORD || "blueagate2026";
-  
-  if (password === adminPassword) {
-    // Set cookie that the middleware looks for
-    const cookieStore = await cookies();
-    cookieStore.set("blueagate_admin_auth", "true", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 60 * 60 * 24 * 7, // 1 week
-      path: "/",
-    });
-    
-    redirect("/admin");
-  } else {
-    return { error: "Senha incorreta." };
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+
+  if (!email || !password) {
+    return { error: "Email e senha são obrigatórios." };
   }
+
+  const supabase = await createSupabaseServerClient();
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    return { error: "Credenciais inválidas. Verifique email e senha." };
+  }
+
+  redirect("/admin");
+}
+
+export async function logout() {
+  const supabase = await createSupabaseServerClient();
+  await supabase.auth.signOut();
+  redirect("/admin/login");
 }

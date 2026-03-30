@@ -1,7 +1,5 @@
 import prisma from "@/lib/prisma";
-import Link from "next/link";
-import Image from "next/image";
-import LitterCarousel from "@/components/LitterCarousel";
+import LittersListClient from "./LittersListClient";
 
 export const dynamic = "force-dynamic";
 
@@ -64,92 +62,9 @@ export default async function LittersPage() {
         </div>
       </section>
 
-      {/* Grid Section */}
+      {/* Filterable List Section */}
       <section className="py-16 max-w-7xl mx-auto px-6">
-        {litters.length === 0 ? (
-          <div className="text-center py-40 border border-zinc-100 rounded-sm">
-            <p className="text-zinc-400 font-light italic">Planejando futuros acasalamentos de elite. Fique atento.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            {litters.map((litter) => (
-              <div key={litter.id} className="group flex flex-col md:flex-row gap-8 items-stretch border-b border-zinc-100 pb-10">
-                <div className="relative w-full md:w-1/2 aspect-[3/2] bg-zinc-50 overflow-hidden rounded-sm group-hover:shadow-xl transition-shadow duration-500">
-                  <LitterCarousel media={litter.media} title={litter.title || "Ninhada"} />
-                  
-                  {/* Status Overlay */}
-                  <div className="absolute top-6 left-6">
-                    <span className="bg-brand-bronze text-white text-[9px] font-bold tracking-[0.2em] uppercase px-4 py-1.5 rounded-sm">
-                      {litter.status}
-                    </span>
-                  </div>
-                </div>
-                
-                <div className="w-full md:w-1/2 flex flex-col justify-between py-2">
-                  <div className="space-y-6">
-                    <div className="space-y-2">
-                      <span className="text-brand-bronze text-[10px] tracking-[0.3em] uppercase font-bold">
-                        {litter.birthDate ? new Date(litter.birthDate!).toLocaleDateString("pt-BR") : "Data Planejada"}
-                      </span>
-                      <h2 className="font-serif text-3xl md:text-4xl text-brand-blue leading-tight group-hover:text-brand-bronze transition-colors">
-                        {litter.title || "Ninhada Exclusiva"}
-                      </h2>
-                    </div>
-
-                    <div className="space-y-4">
-                      <div className="flex gap-10 items-center pt-2">
-                        <div className="flex items-center gap-4">
-                          <div className="w-10 h-10 rounded-full overflow-hidden border border-zinc-100 relative grayscale-[0.5]">
-                            <Image src={litter.sire?.profilePhoto || "/placeholder-dog.png"} fill className="object-cover" alt="Sire" />
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-[9px] text-zinc-400 uppercase tracking-widest mb-1">Pai</span>
-                            <span className="text-brand-blue text-sm font-medium">{litter.sire?.nickname || litter.sire?.name || "Pai Selecionado"}</span>
-                          </div>
-                        </div>
-                        <div className="w-[1px] h-8 bg-zinc-100" />
-                        <div className="flex items-center gap-4">
-                          <div className="w-10 h-10 rounded-full overflow-hidden border border-zinc-100 relative grayscale-[0.5]">
-                            <Image src={litter.dam?.profilePhoto || "/placeholder-dog.png"} fill className="object-cover" alt="Dam" />
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-[9px] text-zinc-400 uppercase tracking-widest mb-1">Mãe</span>
-                            <span className="text-brand-blue text-sm font-medium">{litter.dam?.nickname || litter.dam?.name || "Mãe Selecionada"}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="pt-4 flex flex-wrap gap-2">
-                       {litter.puppies.length > 0 ? (
-                         (() => {
-                            const counts = litter.puppies.reduce((acc: any, p: any) => {
-                              const sex = p.sex === 'M' ? 'Macho' : 'Fêmea';
-                              acc[sex] = (acc[sex] || 0) + 1;
-                              return acc;
-                            }, {});
-                            return Object.entries(counts).map(([sex, count]) => (
-                               <span key={sex} className="px-4 py-1.5 bg-brand-bronze/5 text-brand-bronze text-[9px] font-bold uppercase tracking-wider rounded-sm border border-brand-bronze/10">
-                                 {sex}: {count as number}
-                               </span>
-                            ));
-                         })()
-                       ) : (
-                         <span className="text-zinc-400 text-[10px] italic">Aguardando nascimento...</span>
-                       )}
-                    </div>
-                  </div>
-
-                  <div className="pt-8">
-                    <Link href={`/ninhadas/${litter.id}`} className="btn-gold px-10 py-3 block text-center">
-                      Detalhes da Ninhada
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+         <LittersListClient initialLitters={litters} />
       </section>
     </div>
   );

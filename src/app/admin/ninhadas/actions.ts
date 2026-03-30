@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { requireAdminAuth } from "@/lib/auth-check";
 
 function extractLitterData(formData: FormData) {
   return {
@@ -19,6 +20,7 @@ function extractLitterData(formData: FormData) {
 }
 
 export async function addLitter(formData: FormData) {
+  await requireAdminAuth();
   const data = extractLitterData(formData);
   
   await prisma.litter.create({
@@ -33,6 +35,7 @@ export async function addLitter(formData: FormData) {
 }
 
 export async function updateLitter(formData: FormData) {
+  await requireAdminAuth();
   const id = formData.get("litterId") as string;
   const data = extractLitterData(formData);
   
@@ -106,6 +109,8 @@ export async function updateLitter(formData: FormData) {
 }
 
 export async function deleteLitter(id: string) {
+  await requireAdminAuth();
+
   await prisma.litter.delete({ where: { id } });
   revalidatePath("/admin/ninhadas");
   redirect("/admin/ninhadas");
