@@ -3,10 +3,23 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminDogs() {
-  const dogs = await prisma.dog.findMany({
+export default async function AdminDogs(props: { searchParams?: any }) {
+  const searchParams = props.searchParams ? await props.searchParams : {};
+  const activeTab = searchParams.tab || "internos";
+
+  const allDogs = await prisma.dog.findMany({
     orderBy: { createdAt: "desc" },
   });
+
+  const activeStatus = searchParams.status || "TODOS";
+
+  const tabDogs = activeTab === "externos" 
+    ? allDogs.filter(d => d.status === "EXTERNO")
+    : allDogs.filter(d => d.status !== "EXTERNO");
+
+  const dogs = activeStatus === "TODOS" 
+    ? tabDogs 
+    : tabDogs.filter(d => d.status === activeStatus);
 
   return (
     <div className="p-8 max-w-7xl mx-auto">
@@ -26,23 +39,70 @@ export default async function AdminDogs() {
         </Link>
       </div>
 
+      <div className="flex items-center gap-4 border-b border-white/10 mb-8">
+        <Link 
+          href="/admin/caes?tab=internos" 
+          className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+            activeTab === "internos" ? "border-brand-bronze text-brand-bronze bg-brand-bronze/5" : "border-transparent text-zinc-400 hover:text-white"
+          }`}
+        >
+          Plantel Principal
+        </Link>
+        <Link 
+          href="/admin/caes?tab=externos" 
+          className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors flex items-center gap-2 ${
+            activeTab === "externos" ? "border-brand-bronze text-brand-bronze bg-brand-bronze/5" : "border-transparent text-zinc-400 hover:text-white"
+          }`}
+        >
+          Cães Externos / Co-propriedade
+          {allDogs.filter((d: any) => d.status === "EXTERNO").length > 0 && (
+            <span className="px-2 py-0.5 bg-white/10 rounded-full text-[10px]">{allDogs.filter((d: any) => d.status === "EXTERNO").length}</span>
+          )}
+        </Link>
+      </div>
+
+      {/* Status Filters */}
+      {activeTab !== "externos" && (
+        <div className="flex flex-wrap items-center gap-2 mb-8">
+          {[
+            { label: "Todos", value: "TODOS" },
+            { label: "Ativos", value: "ATIVO" },
+            { label: "Aposentados", value: "APOSENTADO" },
+            { label: "Vendidos", value: "VENDIDO" },
+            { label: "Óbitos", value: "OBITO" },
+          ].map((s) => (
+            <Link
+              key={s.value}
+              href={`/admin/caes?tab=${activeTab}&status=${s.value}`}
+              className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
+                activeStatus === s.value
+                  ? "bg-brand-bronze text-white shadow-lg shadow-brand-bronze/20"
+                  : "bg-zinc-900 text-zinc-400 border border-white/5 hover:border-white/10 hover:text-white"
+              }`}
+            >
+              {s.label}
+            </Link>
+          ))}
+        </div>
+      )}
+
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-zinc-900 border border-white/5 rounded-xl p-4">
-          <p className="text-xs text-zinc-500 uppercase tracking-wider">Total</p>
-          <p className="text-2xl font-bold text-white mt-1">{dogs.length}</p>
+          <p className="text-xs text-zinc-500 uppercase tracking-wider">Total {activeTab === "internos" ? "Plantel" : "Externos"}</p>
+          <p className="text-2xl font-bold text-white mt-1">{tabDogs.length}</p>
         </div>
         <div className="bg-zinc-900 border border-white/5 rounded-xl p-4">
-          <p className="text-xs text-zinc-500 uppercase tracking-wider">Ativos</p>
-          <p className="text-2xl font-bold text-green-400 mt-1">{dogs.filter(d => d.status === "ATIVO").length}</p>
+          <p className="text-xs text-zinc-500 uppercase tracking-wider">Filtrados</p>
+          <p className="text-2xl font-bold text-brand-gold mt-1">{dogs.length}</p>
         </div>
         <div className="bg-zinc-900 border border-white/5 rounded-xl p-4">
           <p className="text-xs text-zinc-500 uppercase tracking-wider">Machos</p>
-          <p className="text-2xl font-bold text-blue-400 mt-1">{dogs.filter(d => d.sex === "M").length}</p>
+          <p className="text-2xl font-bold text-blue-400 mt-1">{tabDogs.filter(d => d.sex === "M").length}</p>
         </div>
         <div className="bg-zinc-900 border border-white/5 rounded-xl p-4">
           <p className="text-xs text-zinc-500 uppercase tracking-wider">Fêmeas</p>
-          <p className="text-2xl font-bold text-pink-400 mt-1">{dogs.filter(d => d.sex === "F").length}</p>
+          <p className="text-2xl font-bold text-pink-400 mt-1">{tabDogs.filter(d => d.sex === "F").length}</p>
         </div>
       </div>
 
@@ -115,6 +175,9 @@ export default async function AdminDogs() {
                 <p className="font-semibold text-white group-hover:text-brand-gold transition-colors truncate text-sm">
                   {dog.nickname || dog.name}
                 </p>
+                {dog.registro && (
+                  <p className="text-zinc-500 text-[10px] font-mono mb-1">{dog.registro}</p>
+                )}
                 {dog.registrationName && (
                   <p className="text-zinc-500 text-[10px] italic truncate mt-0.5">{dog.registrationName}</p>
                 )}

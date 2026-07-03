@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdminAuth } from "@/lib/auth-check";
+import { generateNextRegistro } from "@/lib/registry";
 function extractDogData(formData: FormData) {
   const sireId = formData.get("sireId") as string;
   const damId = formData.get("damId") as string;
@@ -54,7 +55,12 @@ export async function addDog(formData: FormData) {
   if (data.sire?.disconnect) delete data.sire;
   if (data.dam?.disconnect) delete data.dam;
 
-  await prisma.dog.create({ data });
+  await prisma.$transaction(async (tx) => {
+    const novoRegistro = await generateNextRegistro(tx);
+    data.registro = novoRegistro;
+    await tx.dog.create({ data });
+  });
+
   revalidatePath("/admin/caes");
   revalidatePath("/caes");
   redirect("/admin/caes");

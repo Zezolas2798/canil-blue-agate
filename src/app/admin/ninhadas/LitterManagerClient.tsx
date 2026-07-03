@@ -301,7 +301,9 @@ export default function LitterManagerClient({
                     {/* Puppy Fields Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                       <div>
-                        <label className="block text-[10px] text-zinc-500 uppercase mb-1">Nome / Identificação</label>
+                        <label className="block text-[10px] text-zinc-500 uppercase mb-1">
+                          Nome / Identificação {puppy.registro && <span className="text-brand-bronze font-bold ml-1">[{puppy.registro}]</span>}
+                        </label>
                         <input 
                           value={puppy.name || ""} 
                           onChange={(e) => updatePuppy(index, "name", e.target.value)}
@@ -339,6 +341,7 @@ export default function LitterManagerClient({
                           <option value="DISPONIVEL">Disponível</option>
                           <option value="RESERVADO">Reservado</option>
                           <option value="VENDIDO">Vendido</option>
+                          <option value="PLANTEL">Plantel</option>
                         </select>
                       </div>
                       <div className="flex items-end">

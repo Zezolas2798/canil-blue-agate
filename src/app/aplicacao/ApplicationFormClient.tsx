@@ -6,7 +6,7 @@ import CustomSelect from "@/components/CustomSelect";
 
 interface Puppy {
   id: string;
-  name: string;
+  name: string | null;
   sex: string;
   color: string;
   status: string;

@@ -22,7 +22,7 @@ export default function AdminLayout({
           </Link>
         </div>
         
-        <nav className="flex-1 p-4 flex flex-col gap-1">
+        <nav className="flex-1 p-4 flex flex-col gap-1 overflow-y-auto">
           <Link href="/admin" className="px-4 py-2 hover:bg-white/5 rounded-lg text-zinc-300 hover:text-brand-bronze transition-colors text-sm">
             📊 Visão Geral
           </Link>
@@ -36,6 +36,9 @@ export default function AdminLayout({
           </Link>
           <Link href="/admin/ninhadas" className="px-4 py-2 hover:bg-white/5 rounded-lg text-zinc-300 hover:text-brand-bronze transition-colors text-sm">
             🐾 Gerenciar Ninhadas
+          </Link>
+          <Link href="/admin/simulador" className="px-4 py-2 hover:bg-white/5 rounded-lg text-zinc-300 hover:text-brand-bronze transition-colors text-sm">
+            🧬 Simulador de Cruzamento
           </Link>
           <Link href="/admin/vacinas" className="px-4 py-2 hover:bg-white/5 rounded-lg text-zinc-300 hover:text-brand-bronze transition-colors text-sm">
             💉 Controle Sanitário

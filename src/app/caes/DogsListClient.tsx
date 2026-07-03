@@ -14,6 +14,7 @@ interface Dog {
   status: string;
   profilePhoto: string | null;
   media: string | null;
+  registro: string | null;
 }
 
 interface DogsListClientProps {
@@ -106,6 +107,9 @@ export default function DogsListClient({ initialDogs }: DogsListClientProps) {
                 <h2 className="font-serif text-2xl text-brand-blue group-hover:text-brand-bronze transition-colors duration-300 truncate">
                   {dog.nickname || dog.name}
                 </h2>
+                {dog.registro && (
+                  <p className="text-zinc-400 text-[10px] font-mono tracking-wider">{dog.registro}</p>
+                )}
                 <div className="flex items-center gap-3 text-[9px] text-[#333F48]/60 uppercase tracking-widest font-light">
                   <span>{dog.sex === "M" ? "Macho" : "Fêmea"}</span>
                   <span className="w-1 h-1 bg-brand-bronze rounded-full" />

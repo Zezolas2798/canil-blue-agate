@@ -55,9 +55,14 @@ export default async function DogDetailPage({ params }: { params: Promise<{ id: 
             <div className="space-y-4">
               <span className="text-brand-bronze text-[10px] tracking-[0.4em] uppercase font-bold">Resumo Genético</span>
               <h1 className="font-serif text-5xl md:text-7xl text-white">{dog.nickname || dog.name}</h1>
-              {dog.registrationName && (
-                <p className="text-white/40 font-serif text-xl italic tracking-wide">{dog.registrationName}</p>
-              )}
+              <div className="flex flex-col gap-1">
+                {dog.registro && (
+                  <p className="text-brand-bronze font-mono text-xs tracking-[0.2em]">{dog.registro}</p>
+                )}
+                {dog.registrationName && (
+                  <p className="text-white/40 font-serif text-xl italic tracking-wide">{dog.registrationName}</p>
+                )}
+              </div>
             </div>
             
             <div className="flex items-center gap-4">

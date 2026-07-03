@@ -130,8 +130,9 @@ export default function DogManagerClient({
       </div>
 
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-serif text-2xl font-bold text-white">
+        <h1 className="font-serif text-2xl font-bold text-white flex items-center gap-3">
           {isEdit ? `Editar: ${dog.nickname || dog.name}` : "Cadastrar Novo Cão"}
+          {dog.registro && <span className="text-brand-bronze text-sm font-mono tracking-widest bg-brand-bronze/10 px-3 py-1 rounded-sm">{dog.registro}</span>}
         </h1>
       </div>
 
@@ -206,8 +207,12 @@ export default function DogManagerClient({
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               <div>
+                <label className="block text-xs font-medium text-zinc-400 mb-1">Registro (Automático)</label>
+                <input name="registro" readOnly defaultValue={dog.registro || "Gerado ao Salvar"} className="w-full bg-zinc-950/50 border border-white/5 rounded-lg px-3 py-2.5 text-zinc-500 text-sm font-mono focus:outline-none" />
+              </div>
+              <div className="md:col-span-1">
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Nome Comum *</label>
                 <input name="name" required defaultValue={dog.name || ""} placeholder="Ex: Brisa" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
               </div>
@@ -394,6 +399,7 @@ export default function DogManagerClient({
                   <select name="status" defaultValue={dog.status || "ATIVO"} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors">
                     <option value="ATIVO">Ativo (Reprodutor/Matriz)</option>
                     <option value="APOSENTADO">Aposentado</option>
+                    <option value="EXTERNO">Externo (Outro Canil / Co-propriedade)</option>
                     <option value="VENDIDO">Vendido</option>
                     <option value="OBITO">Falecido / Óbito</option>
                   </select>

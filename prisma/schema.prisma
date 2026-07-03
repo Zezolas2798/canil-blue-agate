@@ -10,6 +10,7 @@ datasource db {
 
 model Dog {
   id               String    @id @default(cuid())
+  registro         String?   @unique
   registrySystem   String?
   nickname         String?
   name             String
@@ -75,6 +76,7 @@ model Litter {
 
 model Puppy {
   id          String    @id @default(cuid())
+  registro    String?   @unique
   name        String?
   sex         String
   color       String

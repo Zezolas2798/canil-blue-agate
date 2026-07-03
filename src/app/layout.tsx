@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import AnimatedLogo from "@/components/AnimatedLogo";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -41,8 +42,10 @@ export default function RootLayout({
               </div>
 
               {/* Center: Gold Dog Heritage Silhouette (Absolutely Centered) */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[45%] pointer-events-none">
-                <div className="logo-dog-img pointer-events-auto" aria-label="Canil Gold Logo" />
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[45%] pointer-events-none flex items-center justify-center">
+                <div className="pointer-events-auto">
+                  <AnimatedLogo />
+                </div>
               </div>
 
               {/* Right: Menu */}

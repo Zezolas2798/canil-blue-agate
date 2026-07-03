@@ -12,6 +12,11 @@ export default async function DogsPage() {
   let dogs: any[] = [];
   try {
     dogs = await prisma.dog.findMany({
+      where: {
+        status: {
+          in: ["ATIVO", "APOSENTADO"],
+        },
+      },
       orderBy: { createdAt: "desc" },
     });
   } catch (error) {
