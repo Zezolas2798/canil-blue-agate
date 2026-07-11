@@ -1,11 +1,12 @@
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 import Image from "next/image";
 import Link from "next/link";
 import PedigreeTree from "@/components/PedigreeTree";
 import { calculateAge } from "@/lib/dateUtils";
+import { getBreedDisplayLabel } from "@/lib/breed-config";
 
 export default async function DogDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -110,7 +111,7 @@ export default async function DogDetailPage({ params }: { params: Promise<{ id: 
             <div className="grid grid-cols-2 gap-y-10 gap-x-12">
               <div>
                 <p className="text-[9px] uppercase tracking-[0.3em] text-brand-bronze font-bold mb-2">Raça / Variedade</p>
-                <p className="text-brand-blue text-lg font-light tracking-wide">{dog.breed} {dog.variety && <span className="text-zinc-400 font-serif italic text-sm">({dog.variety})</span>}</p>
+                <p className="text-brand-blue text-lg font-light tracking-wide">{getBreedDisplayLabel(dog.breed, dog.variety)}</p>
               </div>
               <div>
                 <p className="text-[9px] uppercase tracking-[0.3em] text-brand-bronze font-bold mb-2">Sexo</p>

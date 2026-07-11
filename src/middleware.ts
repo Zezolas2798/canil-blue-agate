@@ -29,10 +29,12 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  // Refresh session (important for keeping the session alive)
+  // Check session locally instead of hitting the Supabase API on every request
+  // This prevents the 30-second IPv6 Edge Runtime timeout locally
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
+  const user = session?.user;
 
   const { pathname } = request.nextUrl;
 

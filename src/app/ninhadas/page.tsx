@@ -1,7 +1,8 @@
 import prisma from "@/lib/prisma";
 import LittersListClient from "./LittersListClient";
+import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // Cache for 1 hour
 
 export const metadata = {
   title: "Ninhadas | Curadoria Blue Agate",
@@ -63,8 +64,10 @@ export default async function LittersPage() {
       </section>
 
       {/* Filterable List Section */}
-      <section className="py-16 max-w-7xl mx-auto px-6">
-         <LittersListClient initialLitters={litters} />
+      <section className="py-24 max-w-7xl mx-auto px-6">
+         <Suspense fallback={<div className="flex justify-center items-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-bronze"></div></div>}>
+           <LittersListClient initialLitters={litters} />
+         </Suspense>
       </section>
     </div>
   );

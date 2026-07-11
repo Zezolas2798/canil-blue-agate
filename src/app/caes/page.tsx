@@ -1,7 +1,8 @@
 import prisma from "@/lib/prisma";
 import DogsListClient from "./DogsListClient";
+import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // Cache for 1 hour
 
 export const metadata = {
   title: "Nosso Plantel | Curadoria Blue Agate",
@@ -63,7 +64,9 @@ export default async function DogsPage() {
 
       {/* Filterable List Section */}
       <section className="py-24 max-w-7xl mx-auto px-6">
-         <DogsListClient initialDogs={dogs} />
+         <Suspense fallback={<div className="flex justify-center items-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-bronze"></div></div>}>
+           <DogsListClient initialDogs={dogs} />
+         </Suspense>
       </section>
     </div>
   );

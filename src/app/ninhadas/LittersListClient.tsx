@@ -1,14 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import LitterCarousel from "@/components/LitterCarousel";
+import { useSearchParams } from "next/navigation";
+
+import { BREEDS, getBreedDisplayLabel } from "@/lib/breed-config";
 
 interface Litter {
   id: string;
   title: string | null;
   status: string;
+  breed: string | null;
+  variety: string | null;
   birthDate: string | Date | null;
   media: string | null;
   sire: { id: string; name: string; nickname: string | null; profilePhoto: string | null };
@@ -28,32 +33,75 @@ const statusFilters = [
 ];
 
 export default function LittersListClient({ initialLitters }: LittersListClientProps) {
-  const [filter, setFilter] = useState("ALL");
+  const searchParams = useSearchParams();
+  const initialBreed = searchParams?.get("breed") || "TODOS";
 
-  const filteredLitters = filter === "ALL" 
-    ? initialLitters 
-    : initialLitters.filter(litter => litter.status === filter);
+  const [statusFilter, setStatusFilter] = useState("ALL");
+  const [breedFilter, setBreedFilter] = useState(initialBreed);
+
+  useEffect(() => {
+    if (searchParams) {
+      setBreedFilter(searchParams.get("breed") || "TODOS");
+    }
+  }, [searchParams]);
+
+  const filteredLitters = initialLitters.filter(litter => {
+    const matchStatus = statusFilter === "ALL" || litter.status === statusFilter;
+    const matchBreed = breedFilter === "TODOS" || litter.breed === breedFilter;
+    return matchStatus && matchBreed;
+  });
 
   return (
     <div className="space-y-12">
       {/* Filter Bar */}
-      <div className="flex flex-wrap justify-center gap-6 md:gap-12 pb-8 border-b border-zinc-100">
-        {statusFilters.map((s) => (
+      <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-zinc-100">
+        
+        {/* Breed Filters */}
+        <div className="flex flex-wrap items-center gap-2">
           <button
-            key={s.value}
-            onClick={() => setFilter(s.value)}
-            className={`text-[10px] tracking-[0.3em] uppercase font-bold transition-all duration-300 relative pb-2 ${
-              filter === s.value 
-                ? "text-brand-bronze" 
-                : "text-zinc-400 hover:text-brand-blue"
+            onClick={() => setBreedFilter("TODOS")}
+            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
+              breedFilter === "TODOS"
+                ? "bg-brand-bronze text-white shadow-lg shadow-brand-bronze/20"
+                : "bg-zinc-50 text-zinc-500 hover:bg-zinc-100"
             }`}
           >
-            {s.label}
-            {filter === s.value && (
-              <span className="absolute bottom-0 left-0 w-full h-[1px] bg-brand-bronze animate-in fade-in slide-in-from-left-2 duration-500" />
-            )}
+            Todas as Raças
           </button>
-        ))}
+          {BREEDS.map((b) => (
+            <button
+              key={b.slug}
+              onClick={() => setBreedFilter(b.slug)}
+              className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
+                breedFilter === b.slug
+                  ? "bg-brand-bronze text-white shadow-lg shadow-brand-bronze/20"
+                  : "bg-zinc-50 text-zinc-500 hover:bg-zinc-100"
+              }`}
+            >
+              {b.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Status Filters */}
+        <div className="flex flex-wrap justify-center gap-4">
+          {statusFilters.map((s) => (
+            <button
+              key={s.value}
+              onClick={() => setStatusFilter(s.value)}
+              className={`text-[10px] tracking-[0.3em] uppercase font-bold transition-all duration-300 relative pb-2 ${
+                statusFilter === s.value 
+                  ? "text-brand-bronze" 
+                  : "text-zinc-400 hover:text-brand-blue"
+              }`}
+            >
+              {s.label}
+              {statusFilter === s.value && (
+                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-brand-bronze animate-in fade-in slide-in-from-left-2 duration-500" />
+              )}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Grid */}
@@ -82,8 +130,14 @@ export default function LittersListClient({ initialLitters }: LittersListClientP
               <div className="w-full md:w-1/2 flex flex-col justify-between py-2">
                 <div className="space-y-6">
                   <div className="space-y-2">
-                    <span className="text-brand-bronze text-[10px] tracking-[0.3em] uppercase font-bold">
+                    <span className="text-brand-bronze text-[10px] tracking-[0.3em] uppercase font-bold flex items-center gap-2">
                       {litter.birthDate ? new Date(litter.birthDate!).toLocaleDateString("pt-BR") : "Data Planejada"}
+                      {litter.breed && (
+                        <>
+                          <span className="w-1 h-1 bg-brand-bronze rounded-full" />
+                          <span>{getBreedDisplayLabel(litter.breed, litter.variety)}</span>
+                        </>
+                      )}
                     </span>
                     <h2 className="font-serif text-3xl md:text-4xl text-brand-blue leading-tight group-hover:text-brand-bronze transition-colors">
                       {litter.title || "Ninhada Exclusiva"}

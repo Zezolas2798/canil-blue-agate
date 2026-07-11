@@ -1,11 +1,12 @@
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 import Image from "next/image";
 import Link from "next/link";
 import PedigreeTree from "@/components/PedigreeTree";
 import LitterCarousel from "@/components/LitterCarousel";
+import { getBreedDisplayLabel } from "@/lib/breed-config";
 
 export default async function LitterDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -93,6 +94,10 @@ export default async function LitterDetailPage({ params }: { params: Promise<{ i
             </div>
 
             <div className="grid grid-cols-2 gap-y-10 items-center border-b border-zinc-100 pb-12">
+              <div className="col-span-2">
+                <p className="text-[9px] uppercase tracking-[0.3em] text-brand-bronze font-bold mb-1">Raça / Variedade</p>
+                <p className="text-brand-blue text-lg font-light tracking-wide">{getBreedDisplayLabel(litter.breed, litter.variety)}</p>
+              </div>
               {litter.birthDate && (
                 <div className="flex flex-col gap-1">
                   <p className="text-[9px] uppercase tracking-[0.3em] text-brand-bronze font-bold">Nascimento</p>

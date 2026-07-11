@@ -54,6 +54,9 @@ model Dog {
   damLitters       Litter[]  @relation("DamLitters")
   sireLitters      Litter[]  @relation("SireLitters")
   vaccines         Vaccine[]
+
+  @@index([status])
+  @@index([breed])
 }
 
 model Litter {
@@ -66,12 +69,16 @@ model Litter {
   price             Float?
   sireId            String?
   damId             String?
+  breed             String?
+  variety           String?
   media             String?
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
   dam               Dog?      @relation("DamLitters", fields: [damId], references: [id])
   sire              Dog?      @relation("SireLitters", fields: [sireId], references: [id])
   puppies           Puppy[]
+
+  @@index([status])
 }
 
 model Puppy {
@@ -81,6 +88,8 @@ model Puppy {
   sex         String
   color       String
   coat        String?
+  breed       String?
+  variety     String?
   birthWeight Float?
   price       Float?
   status      String    @default("DISPONIVEL")

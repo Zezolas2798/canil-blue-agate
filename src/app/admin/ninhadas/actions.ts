@@ -16,6 +16,8 @@ function extractLitterData(formData: FormData) {
     sireId: (formData.get("sireId") as string) || null,
     damId: (formData.get("damId") as string) || null,
     price: formData.get("price") ? parseFloat(formData.get("price") as string) : null,
+    breed: (formData.get("breed") as string) || null,
+    variety: (formData.get("variety") as string) || null,
     media: (formData.get("_media") as string) || "[]",
   };
 }
@@ -76,6 +78,8 @@ export async function updateLitter(formData: FormData) {
           sex: p.sex || "M",
           color: p.color || "",
           coat: p.coat || null,
+          breed: data.breed,
+          variety: data.variety,
           birthWeight: p.birthWeight ? parseFloat(p.birthWeight) : null,
           price: p.price ? parseFloat(p.price) : (data.price || null),
           status: p.status || "DISPONIVEL",
@@ -148,7 +152,8 @@ export async function updateLitter(formData: FormData) {
               data: {
                 registro,
                 name: puppyData.name || `Cão de Plantel (${registro})`,
-                breed: "Não definida",
+                breed: data.breed || "Não definida",
+                variety: data.variety,
                 sex: puppyData.sex,
                 color: puppyData.color,
                 coat: puppyData.coat,

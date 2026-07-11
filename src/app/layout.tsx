@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Montserrat, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -64,11 +65,11 @@ export default function RootLayout({
                 BLUE AGATE
               </div>
               <div className="flex flex-wrap justify-center gap-8 mb-12 text-zinc-400 text-sm font-light">
-                <a href="/caes" className="hover:text-brand-bronze transition-colors">Nossos Cães</a>
-                <a href="/ninhadas" className="hover:text-brand-bronze transition-colors">Ninhadas</a>
+                <Link href="/caes" className="hover:text-brand-bronze transition-colors">Nossos Cães</Link>
+                <Link href="/ninhadas" className="hover:text-brand-bronze transition-colors">Ninhadas</Link>
                 <a href="https://www.instagram.com/canilblueagate?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="hover:text-brand-bronze transition-colors">Instagram</a>
-                <a href="/contato" className="hover:text-brand-bronze transition-colors">Contato</a>
-                <a href="/privacidade" className="hover:text-brand-bronze transition-colors">Privacidade</a>
+                <Link href="/contato" className="hover:text-brand-bronze transition-colors">Contato</Link>
+                <Link href="/privacidade" className="hover:text-brand-bronze transition-colors">Privacidade</Link>
               </div>
               <div className="w-20 h-[1px] bg-brand-bronze/30 mx-auto mb-8" />
               <p className="text-zinc-500 text-xs font-light tracking-widest">

@@ -134,7 +134,7 @@ export default function SimulatorClient({ dogs }: { dogs: any[] }) {
               
               {/* Background watermark */}
                <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
-                 <img src="/logo-agata.png" alt="Watermark" className="w-[500px]" onError={(e) => e.currentTarget.style.display = 'none'} />
+                 <img src="/logo-agata.png" alt="Watermark" className="w-[500px]" loading="lazy" onError={(e) => e.currentTarget.style.display = 'none'} />
                </div>
 
                <PedigreeTree dog={simulatedDog} />

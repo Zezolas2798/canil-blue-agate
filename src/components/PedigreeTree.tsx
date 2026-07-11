@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 type PedigreeDog = {
   id: string;
@@ -18,59 +19,6 @@ interface PedigreeTreeProps {
 }
 
 export default function PedigreeTree({ dog }: PedigreeTreeProps) {
-  // Render a generation node
-  const RenderNode = ({ node, label }: { node?: PedigreeDog | null; label: string }) => {
-    const content = (
-      <div className={`flex-1 min-w-[150px] p-4 rounded-sm bg-white border border-brand-bronze/10 shadow-sm transition-all duration-500 ${node ? "group hover:border-brand-bronze hover:shadow-lg cursor-pointer" : ""}`}>
-        <p className="text-[8px] font-bold text-brand-bronze uppercase tracking-[0.3em] mb-3 border-b border-zinc-50 pb-2 flex justify-between items-center">
-          {label}
-          {node?.sex && (
-            <span className="text-brand-blue opacity-30">
-              {node.sex === "M" ? "♂" : "♀"}
-            </span>
-          )}
-        </p>
-        {node ? (
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full overflow-hidden bg-zinc-50 border border-zinc-100 flex-shrink-0 relative">
-              {node.profilePhoto ? (
-                <img src={node.profilePhoto} alt={node.name} className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500" />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-[10px] text-zinc-300 font-bold font-serif">
-                  BA
-                </div>
-              )}
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-bold text-brand-blue truncate group-hover:text-brand-bronze transition-colors leading-tight">
-                {node.nickname || node.name}
-              </p>
-              {node.registrationName && (
-                <p className="text-[8px] text-zinc-400 italic truncate mt-1">
-                  {node.registrationName}
-                </p>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div className="py-2 text-center">
-            <p className="text-[9px] text-zinc-300 italic tracking-wide">Ancestral não registrado</p>
-          </div>
-        )}
-      </div>
-    );
-
-    if (node?.id) {
-      return (
-        <Link href={`/caes/${node.id}`} className="flex-1 flex flex-col no-underline">
-          {content}
-        </Link>
-      );
-    }
-
-    return content;
-  };
-
   return (
     <div className="w-full overflow-x-auto pb-6 scrollbar-hide">
       <div className="min-w-[900px] flex gap-8 p-6 items-center">
@@ -117,4 +65,57 @@ export default function PedigreeTree({ dog }: PedigreeTreeProps) {
       </div>
     </div>
   );
+}
+
+// Render a generation node
+function RenderNode({ node, label }: { node?: PedigreeDog | null; label: string }) {
+  const content = (
+    <div className={`flex-1 min-w-[150px] p-4 rounded-sm bg-white border border-brand-bronze/10 shadow-sm transition-all duration-500 ${node ? "group hover:border-brand-bronze hover:shadow-lg cursor-pointer" : ""}`}>
+      <p className="text-[8px] font-bold text-brand-bronze uppercase tracking-[0.3em] mb-3 border-b border-zinc-50 pb-2 flex justify-between items-center">
+        {label}
+        {node?.sex && (
+          <span className="text-brand-blue opacity-30">
+            {node.sex === "M" ? "♂" : "♀"}
+          </span>
+        )}
+      </p>
+      {node ? (
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-full overflow-hidden bg-zinc-50 border border-zinc-100 flex-shrink-0 relative">
+            {node.profilePhoto ? (
+              <Image src={node.profilePhoto} alt={node.name} fill sizes="100px" className="object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500" />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-[10px] text-zinc-300 font-bold font-serif">
+                BA
+              </div>
+            )}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-bold text-brand-blue truncate group-hover:text-brand-bronze transition-colors leading-tight">
+              {node.nickname || node.name}
+            </p>
+            {node.registrationName && (
+              <p className="text-[8px] text-zinc-400 italic truncate mt-1">
+                {node.registrationName}
+              </p>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="py-2 text-center">
+          <p className="text-[9px] text-zinc-300 italic tracking-wide">Ancestral não registrado</p>
+        </div>
+      )}
+    </div>
+  );
+
+  if (node?.id) {
+    return (
+      <Link href={`/admin/caes/${node.id}`} className="flex-1 flex flex-col no-underline">
+        {content}
+      </Link>
+    );
+  }
+
+  return content;
 }

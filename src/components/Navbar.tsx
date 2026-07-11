@@ -17,8 +17,22 @@ export default function Navbar() {
 
   const links = [
     { name: "Início", href: "/" },
-    { name: "Plantel", href: "/caes" },
-    { name: "Ninhadas", href: "/ninhadas" },
+    { 
+      name: "Plantel", 
+      href: "/caes",
+      dropdown: [
+        { name: "Dachshund", href: "/caes?breed=dachshund" },
+        { name: "Pastor Belga", href: "/caes?breed=pastor-belga" }
+      ]
+    },
+    { 
+      name: "Ninhadas", 
+      href: "/ninhadas",
+      dropdown: [
+        { name: "Dachshund", href: "/ninhadas?breed=dachshund" },
+        { name: "Pastor Belga", href: "/ninhadas?breed=pastor-belga" }
+      ]
+    },
     { name: "Aplicação", href: "/aplicacao" },
   ];
 
@@ -32,13 +46,30 @@ export default function Navbar() {
       {/* Desktop Menu */}
       <div className="hidden md:flex gap-10 text-[13px] font-medium uppercase tracking-widest text-white/80">
         {links.map((link) => (
-          <Link 
-            key={link.name} 
-            href={link.href} 
-            className="hover:text-brand-bronze transition-colors duration-300"
-          >
-            {link.name}
-          </Link>
+          <div key={link.name} className="relative group">
+            <Link 
+              href={link.href} 
+              className="hover:text-brand-bronze transition-colors duration-300 py-4"
+            >
+              {link.name}
+            </Link>
+            {link.dropdown && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 pt-4 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                <div className="bg-zinc-900 border border-white/10 rounded-lg shadow-2xl p-2 flex flex-col gap-1 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(158,122,44,0.1)_0%,transparent_100%)]" />
+                  {link.dropdown.map(drop => (
+                    <Link
+                      key={drop.name}
+                      href={drop.href}
+                      className="relative z-10 px-4 py-2.5 text-xs text-white/70 hover:text-brand-gold hover:bg-white/5 rounded-md transition-all text-center"
+                    >
+                      {drop.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         ))}
       </div>
 
@@ -98,17 +129,31 @@ export default function Navbar() {
         </div>
 
         {/* Navigation Links */}
-        <div className="flex-1 px-8 py-12 flex flex-col gap-8">
+        <div className="flex-1 px-8 py-12 flex flex-col gap-8 overflow-y-auto">
           {links.map((link, idx) => (
-            <Link 
-              key={link.name} 
-              href={link.href} 
-              className={`text-2xl font-serif text-white/90 transition-all duration-300 hover:text-brand-bronze transform ${isOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
-              style={{ transitionDelay: `${idx * 100 + 200}ms` }}
-              onClick={() => setIsOpen(false)}
-            >
-              {link.name}
-            </Link>
+            <div key={link.name} className={`flex flex-col gap-3 transition-all duration-300 transform ${isOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`} style={{ transitionDelay: `${idx * 100 + 200}ms` }}>
+              <Link 
+                href={link.href} 
+                className="text-2xl font-serif text-white/90 hover:text-brand-bronze"
+                onClick={() => setIsOpen(false)}
+              >
+                {link.name}
+              </Link>
+              {link.dropdown && (
+                <div className="flex flex-col gap-2 pl-4 border-l border-white/20 ml-2">
+                  {link.dropdown.map(drop => (
+                    <Link
+                      key={drop.name}
+                      href={drop.href}
+                      className="text-sm font-medium uppercase tracking-widest text-white/60 hover:text-brand-gold"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {drop.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </div>
 

@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import CustomSelect from "@/components/CustomSelect";
+import { BREEDS } from "@/lib/breed-config";
 
 interface Puppy {
   id: string;
@@ -18,6 +19,8 @@ interface Litter {
   id: string;
   title: string | null;
   status: string;
+  breed: string | null;
+  variety: string | null;
   media?: string | null;
   puppies: Puppy[];
 }
@@ -33,6 +36,7 @@ function FormContent({ initialLitters }: ApplicationFormClientProps) {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const [formData, setFormData] = useState({
+    breedSlug: "",
     name: "",
     email: "",
     phone: "",
@@ -58,14 +62,20 @@ function FormContent({ initialLitters }: ApplicationFormClientProps) {
 
   const selectedLitter = initialLitters.find(l => l.id === formData.litterId);
   const availablePuppies = selectedLitter?.puppies || [];
+  
+  const filteredLitters = useMemo(() => {
+    if (!formData.breedSlug || formData.breedSlug === "TODOS") return initialLitters;
+    return initialLitters.filter(l => l.breed === formData.breedSlug);
+  }, [initialLitters, formData.breedSlug]);
 
   const updateForm = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const nextStep = () => {
-    if (step === 1 && (!formData.name || !formData.email || !formData.phone)) return;
-    if (step === 2 && !formData.litterId) return;
+    if (step === 1 && !formData.breedSlug) return;
+    if (step === 2 && (!formData.name || !formData.email || !formData.phone)) return;
+    if (step === 3 && !formData.litterId) return;
     setStep(s => s + 1);
   };
 
@@ -75,9 +85,10 @@ function FormContent({ initialLitters }: ApplicationFormClientProps) {
     setIsSubmitting(true);
     
     // Construct the "interest" string for the backend (compatibility)
+    const breedLabel = BREEDS.find(b => b.slug === formData.breedSlug)?.label || formData.breedSlug;
     const litterName = selectedLitter?.title || "Ninhada não especificada";
     const puppyName = availablePuppies.find(p => p.id === formData.puppyId)?.name || "Qualquer filhote disponível";
-    const interestSummary = `Ninhada: ${litterName} | Filhote: ${puppyName}`;
+    const interestSummary = `Raça/Variedade: ${breedLabel} | Ninhada: ${litterName} | Filhote: ${puppyName}`;
 
     try {
       const response = await fetch('/api/leads', {
@@ -132,17 +143,53 @@ function FormContent({ initialLitters }: ApplicationFormClientProps) {
         <div className="absolute top-0 left-0 w-full h-1 bg-zinc-800 rounded-t-2xl overflow-hidden">
           <div 
             className="h-full bg-gradient-to-r from-brand-bronze to-brand-gold transition-all duration-500"
-            style={{ width: `${(step / 3) * 100}%` }}
+            style={{ width: `${(step / 4) * 100}%` }}
           />
         </div>
 
-        <div className="flex items-center justify-between mb-10 text-[10px] font-bold uppercase tracking-[0.2em]">
-          <span className={step >= 1 ? "text-brand-gold" : "text-zinc-600"}>01. Seus Dados</span>
-          <span className={step >= 2 ? "text-brand-gold" : "text-zinc-600"}>02. Escolha o Filhote</span>
-          <span className={step >= 3 ? "text-brand-gold" : "text-zinc-600"}>03. Perfil do Lar</span>
+        <div className="flex items-center justify-between mb-10 text-[10px] font-bold uppercase tracking-[0.2em] overflow-x-auto whitespace-nowrap gap-4 pb-2">
+          <span className={step >= 1 ? "text-brand-gold" : "text-zinc-600"}>01. Raça</span>
+          <span className={step >= 2 ? "text-brand-gold" : "text-zinc-600"}>02. Seus Dados</span>
+          <span className={step >= 3 ? "text-brand-gold" : "text-zinc-600"}>03. Ninhada</span>
+          <span className={step >= 4 ? "text-brand-gold" : "text-zinc-600"}>04. Perfil</span>
         </div>
 
         {step === 1 && (
+          <div className="animate-in fade-in slide-in-from-right-4 duration-500">
+            <h2 className="text-2xl font-serif text-white mb-6">Qual Raça ou Variedade?</h2>
+            <div className="space-y-6">
+              <div>
+                <label className="block text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-4">Escolha a Raça/Variedade Desejada</label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {BREEDS.map(breed => (
+                    <button
+                      key={breed.slug}
+                      onClick={() => updateForm('breedSlug', breed.slug)}
+                      className={`p-4 rounded-xl border text-left transition-all ${
+                        formData.breedSlug === breed.slug
+                          ? "bg-brand-bronze/10 border-brand-bronze text-white"
+                          : "bg-zinc-950 border-white/10 text-zinc-400 hover:border-white/30 hover:text-zinc-200"
+                      }`}
+                    >
+                      <h3 className="font-serif text-lg mb-1">{breed.label}</h3>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="mt-10 flex justify-end">
+              <button 
+                onClick={nextStep}
+                disabled={!formData.breedSlug}
+                className="btn-gold px-10 py-4 disabled:opacity-50 transition-all font-bold tracking-widest uppercase text-[10px]"
+              >
+                Próximo Passo
+              </button>
+            </div>
+          </div>
+        )}
+
+        {step === 2 && (
           <div className="animate-in fade-in slide-in-from-right-4 duration-500">
             <h2 className="text-2xl font-serif text-white mb-6">Informações Pessoais</h2>
             <div className="space-y-5">
@@ -177,7 +224,13 @@ function FormContent({ initialLitters }: ApplicationFormClientProps) {
                 />
               </div>
             </div>
-            <div className="mt-10 flex justify-end">
+            <div className="mt-10 flex justify-between">
+              <button 
+                onClick={prevStep}
+                className="text-zinc-500 hover:text-white transition-colors text-[10px] font-bold uppercase tracking-widest"
+              >
+                Voltar
+              </button>
               <button 
                 onClick={nextStep}
                 disabled={!formData.name || !formData.email || !formData.phone}
@@ -189,7 +242,7 @@ function FormContent({ initialLitters }: ApplicationFormClientProps) {
           </div>
         )}
 
-        {step === 2 && (
+        {step === 3 && (
           <div className="animate-in fade-in slide-in-from-right-4 duration-500">
             <h2 className="text-2xl font-serif text-white mb-6">Qual linhagem você busca?</h2>
             <div className="space-y-6">
@@ -202,7 +255,7 @@ function FormContent({ initialLitters }: ApplicationFormClientProps) {
                     updateForm('litterId', val);
                     updateForm('puppyId', "");
                   }}
-                  options={initialLitters.map(l => {
+                  options={filteredLitters.map(l => {
                     const parsedMedia = (() => {
                       if (!l.media) return [];
                       try { return JSON.parse(l.media); } catch { return []; }
@@ -258,7 +311,7 @@ function FormContent({ initialLitters }: ApplicationFormClientProps) {
           </div>
         )}
 
-        {step === 3 && (
+        {step === 4 && (
           <div className="animate-in fade-in slide-in-from-right-4 duration-500">
             <h2 className="text-2xl font-serif text-white mb-6">Sobre o Futuro Lar</h2>
             <div className="space-y-6">

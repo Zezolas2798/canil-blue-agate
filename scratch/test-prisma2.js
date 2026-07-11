@@ -1,0 +1,1 @@
+const { PrismaClient } = require('@prisma/client'); const prisma = new PrismaClient(); console.time('prisma'); prisma.dog.count().then((c) => { console.log(c); console.timeEnd('prisma'); }).catch(console.error).finally(() => prisma.$disconnect());

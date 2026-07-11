@@ -4,14 +4,15 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
   try {
-    const leads = await prisma.lead.findMany({
-      orderBy: { createdAt: "desc" },
-      take: 10,
-    });
-
-    const totalDogs = await prisma.dog.count();
-    const totalLitters = await prisma.litter.count();
-    const totalLeads = await prisma.lead.count();
+    const [leads, totalDogs, totalLitters, totalLeads] = await Promise.all([
+      prisma.lead.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 10,
+      }),
+      prisma.dog.count(),
+      prisma.litter.count(),
+      prisma.lead.count(),
+    ]);
 
     return (
       <div className="p-8 max-w-6xl mx-auto">

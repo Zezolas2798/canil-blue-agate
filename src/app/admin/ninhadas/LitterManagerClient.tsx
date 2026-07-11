@@ -2,7 +2,9 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { addLitter, updateLitter } from "./actions";
+import { BREEDS, getBreedBySlug } from "@/lib/breed-config";
 
 type Dog = any;
 type Puppy = any;
@@ -24,6 +26,10 @@ export default function LitterManagerClient({
 
   const isEdit = mode === "edit" && existingLitter;
   const litter = existingLitter || {};
+
+  const [selectedBreed, setSelectedBreed] = useState<string>(litter.breed || "");
+  const [selectedVariety, setSelectedVariety] = useState<string>(litter.variety || "");
+  const currentBreedObj = getBreedBySlug(selectedBreed);
 
   // Photos state
   const initialPhotos: string[] = (() => {
@@ -200,6 +206,39 @@ export default function LitterManagerClient({
               </div>
 
               <div>
+                <label className="block text-xs font-medium text-zinc-400 mb-1">Raça da Ninhada *</label>
+                <select 
+                  name="breed" 
+                  required 
+                  value={selectedBreed}
+                  onChange={(e) => {
+                    setSelectedBreed(e.target.value);
+                    setSelectedVariety("");
+                  }}
+                  className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors"
+                >
+                  <option value="" disabled>Selecione a Raça</option>
+                  {BREEDS.map(b => (
+                    <option key={b.slug} value={b.slug}>{b.label}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-zinc-400 mb-1">Variedade da Ninhada</label>
+                <select 
+                  name="variety" 
+                  value={selectedVariety}
+                  onChange={(e) => setSelectedVariety(e.target.value)}
+                  className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors"
+                >
+                  <option value="">Nenhuma / Não se aplica</option>
+                  {currentBreedObj?.varieties.map(v => (
+                    <option key={v.slug} value={v.slug}>{v.label}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Status da Reprodução</label>
                 <select name="status" defaultValue={litter.status || "PLANEJADA"} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors">
                   <option value="PLANEJADA">Acasalamento Planejado / Realizado</option>
@@ -267,7 +306,7 @@ export default function LitterManagerClient({
                          }
                          return photosArr.map((url: string, pIdx: number) => (
                            <div key={pIdx} className="w-20 h-20 rounded-lg bg-zinc-900 border border-white/10 flex items-center justify-center overflow-hidden relative group">
-                             <img src={url} className="w-full h-full object-cover" alt="Puppy" />
+                             <Image src={url} width={80} height={80} className="w-full h-full object-cover" alt="Puppy" />
                              <button 
                                type="button"
                                onClick={() => removePuppyPhoto(index, pIdx)}
@@ -383,7 +422,7 @@ export default function LitterManagerClient({
             <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3">
               {photos.map((url, i) => (
                 <div key={i} className="aspect-square relative group rounded-lg overflow-hidden border border-white/5">
-                  <img src={url} className="w-full h-full object-cover" />
+                  <Image src={url} width={200} height={200} className="w-full h-full object-cover" alt="Litter Photo" />
                   <button 
                     type="button" 
                     onClick={() => setPhotos(photos.filter((_, idx) => idx !== i))}

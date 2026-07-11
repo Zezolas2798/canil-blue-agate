@@ -5,6 +5,7 @@ import Link from "next/link";
 import { addDog, updateDog } from "./actions";
 import PedigreeTree from "@/components/PedigreeTree";
 import { calculateAge } from "@/lib/dateUtils";
+import { BREEDS, getBreedBySlug } from "@/lib/breed-config";
 
 type Dog = any;
 type Litter = any;
@@ -36,6 +37,11 @@ export default function DogManagerClient({
   })();
   const [photos, setPhotos] = useState<string[]>(initialPhotos);
   const [profilePhoto, setProfilePhoto] = useState<string>(dog.profilePhoto || "");
+
+  const [selectedBreed, setSelectedBreed] = useState<string>(dog.breed || "dachshund");
+  const [selectedVariety, setSelectedVariety] = useState<string>(dog.variety || "");
+  
+  const currentBreedObj = getBreedBySlug(selectedBreed);
 
   const tabs = [
     { id: 1, name: "Dados Básicos", icon: "📋" },
@@ -169,7 +175,7 @@ export default function DogManagerClient({
               <div className="relative flex-shrink-0">
                 <div className="w-28 h-28 rounded-2xl overflow-hidden bg-zinc-800 border-2 border-white/10">
                   {profilePhoto ? (
-                    <img src={profilePhoto} alt="Foto de perfil" className="w-full h-full object-cover" />
+                    <img src={profilePhoto} alt="Foto de perfil" loading="lazy" className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <svg className="w-8 h-8 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -230,12 +236,47 @@ export default function DogManagerClient({
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Raça *</label>
-                <input name="breed" required defaultValue={dog.breed || "Dachshund"} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
+                <select 
+                  name="breed" 
+                  required 
+                  value={selectedBreed}
+                  onChange={(e) => {
+                    setSelectedBreed(e.target.value);
+                    setSelectedVariety("");
+                  }}
+                  className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors"
+                >
+                  <option value="" disabled>Selecione a Raça</option>
+                  {BREEDS.map(b => (
+                    <option key={b.slug} value={b.slug}>{b.label}</option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Variedade</label>
-                <input name="variety" defaultValue={dog.variety || ""} placeholder="Ex: Miniatura Pelo Longo" className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors" />
+                <select 
+                  name="variety" 
+                  value={selectedVariety}
+                  onChange={(e) => setSelectedVariety(e.target.value)}
+                  className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors"
+                >
+                  <option value="">Nenhuma / Não se aplica</option>
+                  {currentBreedObj?.varieties.map(v => (
+                    <option key={v.slug} value={v.slug}>{v.label}</option>
+                  ))}
+                </select>
               </div>
+              {currentBreedObj?.hasCoatTypes && (
+                <div>
+                  <label className="block text-xs font-medium text-zinc-400 mb-1">Pelagem</label>
+                  <select name="coat" defaultValue={dog.coat || ""} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors">
+                    <option value="">Selecione a Pelagem</option>
+                    <option value="Pelo Curto">Pelo Curto</option>
+                    <option value="Pelo Longo">Pelo Longo</option>
+                    <option value="Pelo Duro">Pelo Duro</option>
+                  </select>
+                </div>
+              )}
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-1">Sexo *</label>
                 <select name="sex" defaultValue={dog.sex || "M"} className="w-full bg-zinc-950 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-brand-bronze transition-colors">
@@ -332,7 +373,7 @@ export default function DogManagerClient({
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                   {photos.map((url, i) => (
                     <div key={i} className="relative group aspect-square rounded-xl overflow-hidden bg-zinc-800 border border-white/5">
-                      <img src={url} alt={`Foto ${i + 1}`} className="w-full h-full object-cover" />
+                      <img src={url} alt={`Foto ${i + 1}`} loading="lazy" className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <button 
                           type="button" 
